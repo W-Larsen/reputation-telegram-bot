@@ -1,7 +1,7 @@
 package com.telegram.drb.command;
 
 import com.telegram.drb.model.domain.UserReputation;
-import com.telegram.drb.service.IUserReputationService;
+import com.telegram.drb.service.UserReputationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -14,11 +14,11 @@ import static com.telegram.drb.util.UserReputationUtil.createUserReputation;
  *
  * @author Valentyn Korniienko
  */
-@Component
+@Component("-")
 public class ReduceReputationCommand implements Command {
 
     @Autowired
-    private IUserReputationService userReputationService;
+    private UserReputationService userReputationService;
 
     @Override
     public String execute(User user, Chat chat) {

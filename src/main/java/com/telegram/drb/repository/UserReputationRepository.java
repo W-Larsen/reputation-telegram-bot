@@ -1,21 +1,19 @@
-package com.telegram.drb.service;
+package com.telegram.drb.repository;
 
 import com.telegram.drb.model.domain.UserReputation;
 
-import java.util.Optional;
-
 /**
- * User reputation service interface.
+ * User reputation repository interface.
  *
  * @author Valentyn Korniienko
  */
-public interface IUserReputationService {
+public interface UserReputationRepository {
 
     /**
      * Create user reputation.
      *
      * @param userReputation the user reputation
-     * @return the user reputation
+     * @return user reputation
      */
     UserReputation createUserReputation(UserReputation userReputation);
 

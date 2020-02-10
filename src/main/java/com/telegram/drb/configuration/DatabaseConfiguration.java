@@ -35,7 +35,7 @@ public class DatabaseConfiguration {
         driverManagerDataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
         driverManagerDataSource.setUrl(environment.getProperty("jdbc.url"));
         driverManagerDataSource.setUsername(environment.getProperty("jdbc.username"));
-        driverManagerDataSource.setPassword(environment.getProperty("jdbc.username"));
+        driverManagerDataSource.setPassword(environment.getProperty("jdbc.password"));
         return driverManagerDataSource;
     }
 
