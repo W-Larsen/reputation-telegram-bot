@@ -1,5 +1,8 @@
 package com.telegram.drb.command;
 
+import org.telegram.telegrambots.meta.api.objects.Chat;
+import org.telegram.telegrambots.meta.api.objects.User;
+
 /**
  * Command.
  *
@@ -9,7 +12,11 @@ public interface Command {
 
     /**
      * Execute command.
+     *
+     * @param user the user
+     * @param chat the chat
+     * @return response
      */
-    void execute();
+    String execute(User user, Chat chat);
 
 }

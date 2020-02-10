@@ -4,18 +4,20 @@ import com.telegram.drb.command.Command;
 import com.telegram.drb.command.IncreaseReputationCommand;
 import com.telegram.drb.command.ReduceReputationCommand;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Application configuration.
+ * Custom bean configuration.
  *
  * @author Valentyn Korniienko
  */
 @Configuration
-public class AppConfig {
+@ComponentScan("com.telegram.drb")
+public class CustomBeanConfiguration {
 
     /**
      * Get command map bean.

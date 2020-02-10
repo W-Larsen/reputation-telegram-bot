@@ -1,13 +1,18 @@
 package com.telegram.drb.bot;
 
+import com.telegram.drb.command.handler.CommandHandler;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Contact;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 /**
@@ -26,22 +31,25 @@ public class DawgReputationBot extends TelegramLongPollingBot {
     @Value("${dawg.reputation.bot.username}")
     private String botUsername;
 
+    @Autowired
+    private CommandHandler commandHandler;
+
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage()) {
             Message message = update.getMessage();
-            SendMessage response = new SendMessage();
-            Long chatId = message.getChatId();
-            response.setChatId(chatId);
-
-            String text = message.getText();
-            response.setText(text);
-
-            try {
-                execute(response);
-                LOGGER.info("Sent message \"{}\" to {}", text, chatId);
-            } catch (TelegramApiException e) {
-                LOGGER.error("Failed to send message \"{}\" to {} due to error: {}", text, chatId, e.getMessage());
+            String responseText = commandHandler.handleMessage(message);
+            if (StringUtils.isNotEmpty(responseText)) {
+                SendMessage response = new SendMessage();
+                Long chatId = message.getChatId();
+                response.setChatId(chatId);
+                response.setText(responseText);
+                try {
+                    execute(response);
+                    LOGGER.info("Sent message \"{}\" to {}", responseText, chatId);
+                } catch (TelegramApiException e) {
+                    LOGGER.error("Failed to send message \"{}\" to {} due to error: {}", responseText, chatId, e.getMessage());
+                }
             }
         }
     }
