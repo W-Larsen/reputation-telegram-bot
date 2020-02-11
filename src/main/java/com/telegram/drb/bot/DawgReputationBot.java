@@ -46,7 +46,7 @@ public class DawgReputationBot extends TelegramLongPollingBot {
                 response.setText(responseText);
                 try {
                     execute(response);
-                    LOGGER.info("Sent message \"{}\" to {}", responseText, chatId);
+                    LOGGER.info("Sent message \"{}\" to {}", responseText, message.getChat().getFirstName());
                 } catch (TelegramApiException e) {
                     LOGGER.error("Failed to send message \"{}\" to {} due to error: {}", responseText, chatId, e.getMessage());
                 }

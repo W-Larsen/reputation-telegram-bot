@@ -1,14 +1,12 @@
 package com.telegram.drb.repository.impl;
 
 import com.telegram.drb.model.domain.UserReputation;
-import com.telegram.drb.repository.UserReputationRepository;
+import com.telegram.drb.repository.IUserReputationRepository;
 import com.telegram.drb.repository.impl.mapper.UserReputationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import javax.annotation.PostConstruct;
 
 import static com.telegram.drb.constants.SqlQueries.CREATE_USER_REPUTATION;
 import static com.telegram.drb.constants.SqlQueries.FIND_BY_USER_ID_AND_CHAT_ID;
@@ -21,7 +19,7 @@ import static com.telegram.drb.constants.SqlQueries.REDUCE_USER_REPUTATION;
  * @author Valentyn Korniienko
  */
 @Repository
-public class UserReputationRepositoryImpl implements UserReputationRepository {
+public class UserReputationRepository implements IUserReputationRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

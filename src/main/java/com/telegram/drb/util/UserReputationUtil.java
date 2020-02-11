@@ -18,7 +18,7 @@ public final class UserReputationUtil {
      * @param chatId the chat id
      * @return user reputation
      */
-    public static UserReputation createUserReputation(Integer userId, Long chatId) {
+    public static UserReputation createUserReputationClass(Integer userId, Long chatId) {
         UserReputation userReputation = new UserReputation();
         userReputation.setUserId(userId);
         userReputation.setChatId(Math.toIntExact(chatId));
