@@ -22,5 +22,4 @@ public class DawgReputationBotInit {
         SpringApplication.run(DawgReputationBotInit.class, args);
     }
 
-
 }

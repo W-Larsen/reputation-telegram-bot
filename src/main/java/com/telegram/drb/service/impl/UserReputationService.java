@@ -57,7 +57,7 @@ public class UserReputationService implements IUserReputationService {
         userReputationRepository.reduceUserReputation(userReputation);
     }
 
-    public UserReputation createUserReputationClass(Integer userId, Long chatId) {
+    private UserReputation createUserReputationClass(Integer userId, Long chatId) {
         UserReputation userReputation = new UserReputation();
         userReputation.setUserId(userId);
         userReputation.setChatId(Math.toIntExact(chatId));
