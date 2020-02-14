@@ -24,7 +24,7 @@ public class ScheduledAppPingService {
     @Autowired
     private DawgReputationBotClient reputationBotClient;
 
-    @Scheduled(cron = "${dawg.scheduled.cron}")
+    @Scheduled(cron = "${dawg.ping.scheduled.cron}")
     public void pingBot() {
         PingResponse ping = reputationBotClient.ping();
         LOGGER.info("Application status is '{}'. Message: '{}'", ping.getStatus(), ping.getMessage());
