@@ -10,7 +10,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class UserReputation {
 
     private Integer userId;
-    private Integer chatId;
+    private Long chatId;
     private Integer reputationValue;
 
     public Integer getUserId() {
@@ -21,11 +21,11 @@ public class UserReputation {
         this.userId = userId;
     }
 
-    public Integer getChatId() {
+    public Long getChatId() {
         return chatId;
     }
 
-    public void setChatId(Integer chatId) {
+    public void setChatId(Long chatId) {
         this.chatId = chatId;
     }
 

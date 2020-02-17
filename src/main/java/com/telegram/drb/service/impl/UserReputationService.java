@@ -3,6 +3,7 @@ package com.telegram.drb.service.impl;
 import com.telegram.drb.model.domain.UserReputation;
 import com.telegram.drb.repository.IUserReputationRepository;
 import com.telegram.drb.service.IUserReputationService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -39,17 +40,23 @@ public class UserReputationService implements IUserReputationService {
         UserReputation reputationRepliedTo = userReputationRepository.findByUserIdAndChatId(repliedTo.getId(), chat.getId());
 
         if (reputationFromBy == null) {
-            reputationFromBy = userReputationRepository.createUserReputation(createUserReputationClass(repliedTo.getId(), chat.getId()));
+            reputationFromBy = userReputationRepository.createUserReputation(
+                    createUserReputationClass(fromBy.getId(), chat.getId()));
         }
         if (reputationRepliedTo == null) {
-            reputationRepliedTo = userReputationRepository.createUserReputation(createUserReputationClass(repliedTo.getId(), chat.getId()));
+            reputationRepliedTo = userReputationRepository.createUserReputation(
+                    createUserReputationClass(repliedTo.getId(), chat.getId()));
+        }
+
+        if (reputationFromBy.getUserId().equals(reputationRepliedTo.getUserId())) {
+            return StringUtils.EMPTY;
         }
 
         action.accept(reputationRepliedTo);
 
         UserReputation actualRepliedToReputation = userReputationRepository.findByUserIdAndChatId(repliedTo.getId(), chat.getId());
         return String.format("%s (%s) %s репутацию %s (%s)",
-                fromBy.getUserName(), reputationFromBy.getReputationValue(), actionMessage,
+                fromBy.getFirstName(), reputationFromBy.getReputationValue(), actionMessage,
                 repliedTo.getFirstName(), actualRepliedToReputation.getReputationValue());
     }
 
@@ -66,7 +73,7 @@ public class UserReputationService implements IUserReputationService {
     private UserReputation createUserReputationClass(Integer userId, Long chatId) {
         UserReputation userReputation = new UserReputation();
         userReputation.setUserId(userId);
-        userReputation.setChatId(Math.toIntExact(chatId));
+        userReputation.setChatId(chatId);
         userReputation.setReputationValue(INTEGER_ZERO);
         return userReputation;
     }
