@@ -8,6 +8,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
 
@@ -19,7 +21,8 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan("com.telegram.drb")
 @PropertySource(value = {"classpath:application.properties"})
-public class DatabaseConfiguration {
+@EnableScheduling
+public class ApplicationConfiguration {
 
     @Autowired
     private Environment environment;
@@ -52,5 +55,14 @@ public class DatabaseConfiguration {
         return jdbcTemplate;
     }
 
+    /**
+     * RestTemplate bean.
+     *
+     * @return rest template
+     */
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
 }

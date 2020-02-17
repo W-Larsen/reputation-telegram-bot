@@ -33,12 +33,14 @@ public interface IUserReputationService {
     /**
      * Manage user reputation.
      *
-     * @param user   the user
-     * @param chat   the chat
-     * @param action the action
+     * @param fromBy        the from user
+     * @param repliedTo     the replied to user
+     * @param chat          the chat
+     * @param action        the action
+     * @param actionMessage the action message
      * @return response
      */
-    String manageUserReputation(User user, Chat chat, Consumer<UserReputation> action);
+    String manageUserReputation(User fromBy, User repliedTo, Chat chat, Consumer<UserReputation> action, String actionMessage);
 
     /**
      * Increase user reputation.

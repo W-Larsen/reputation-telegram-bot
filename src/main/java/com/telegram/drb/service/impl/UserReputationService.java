@@ -34,17 +34,23 @@ public class UserReputationService implements IUserReputationService {
     }
 
     @Override
-    public String manageUserReputation(User user, Chat chat, Consumer<UserReputation> action) {
-        UserReputation userReputation = userReputationRepository.findByUserIdAndChatId(user.getId(), chat.getId());
-        if (userReputation == null) {
-            userReputation = userReputationRepository.createUserReputation(createUserReputationClass(user.getId(), chat.getId()));
+    public String manageUserReputation(User fromBy, User repliedTo, Chat chat, Consumer<UserReputation> action, String actionMessage) {
+        UserReputation reputationFromBy = userReputationRepository.findByUserIdAndChatId(fromBy.getId(), chat.getId());
+        UserReputation reputationRepliedTo = userReputationRepository.findByUserIdAndChatId(repliedTo.getId(), chat.getId());
+
+        if (reputationFromBy == null) {
+            reputationFromBy = userReputationRepository.createUserReputation(createUserReputationClass(repliedTo.getId(), chat.getId()));
+        }
+        if (reputationRepliedTo == null) {
+            reputationRepliedTo = userReputationRepository.createUserReputation(createUserReputationClass(repliedTo.getId(), chat.getId()));
         }
 
-        action.accept(userReputation);
+        action.accept(reputationRepliedTo);
 
-        UserReputation actualUserReputation = userReputationRepository.findByUserIdAndChatId(user.getId(), chat.getId());
-        return String.format("User %s reputation from chat %s is %s",
-                user.getUserName(), chat.getFirstName(), actualUserReputation.getReputationValue());
+        UserReputation actualRepliedToReputation = userReputationRepository.findByUserIdAndChatId(repliedTo.getId(), chat.getId());
+        return String.format("%s (%s) %s репутацию %s (%s)",
+                fromBy.getUserName(), reputationFromBy.getReputationValue(), actionMessage,
+                repliedTo.getFirstName(), actualRepliedToReputation.getReputationValue());
     }
 
     @Override
