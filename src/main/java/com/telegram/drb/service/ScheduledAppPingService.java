@@ -24,6 +24,9 @@ public class ScheduledAppPingService {
     @Autowired
     private DawgReputationBotClient reputationBotClient;
 
+    /**
+     * Scheduled method to ping application.
+     */
     @Scheduled(cron = "${dawg.ping.scheduled.cron}")
     public void pingBot() {
         PingResponse ping = reputationBotClient.ping();

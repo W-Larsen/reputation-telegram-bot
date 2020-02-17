@@ -64,7 +64,7 @@ public class UserReputationService implements IUserReputationService {
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         if (StringUtils.isNotEmpty(lastName)) {
-            return firstName + lastName;
+            return firstName + " " + lastName;
         }
         return firstName;
     }
