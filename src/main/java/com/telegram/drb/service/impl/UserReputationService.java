@@ -56,8 +56,17 @@ public class UserReputationService implements IUserReputationService {
 
         UserReputation actualRepliedToReputation = userReputationRepository.findByUserIdAndChatId(repliedTo.getId(), chat.getId());
         return String.format("%s (%s) %s репутацию %s (%s)",
-                fromBy.getFirstName(), reputationFromBy.getReputationValue(), actionMessage,
-                repliedTo.getFirstName(), actualRepliedToReputation.getReputationValue());
+                getFullName(fromBy), reputationFromBy.getReputationValue(), actionMessage,
+                getFullName(repliedTo), actualRepliedToReputation.getReputationValue());
+    }
+
+    private String getFullName(User user) {
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        if (StringUtils.isNotEmpty(lastName)) {
+            return firstName + lastName;
+        }
+        return firstName;
     }
 
     @Override
