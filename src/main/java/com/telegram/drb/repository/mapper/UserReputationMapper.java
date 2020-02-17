@@ -1,4 +1,4 @@
-package com.telegram.drb.repository.impl.mapper;
+package com.telegram.drb.repository.mapper;
 
 import com.telegram.drb.model.domain.UserReputation;
 import org.springframework.jdbc.core.RowMapper;
