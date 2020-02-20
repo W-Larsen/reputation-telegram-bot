@@ -1,4 +1,4 @@
-package com.telegram.drb.repository;
+package com.telegram.drb.repository.chat;
 
 import com.telegram.drb.model.domain.TelegramChat;
 

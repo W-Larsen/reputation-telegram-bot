@@ -1,11 +1,12 @@
-package com.telegram.drb.repository.impl;
+package com.telegram.drb.repository.user.impl;
 
 import com.telegram.drb.model.domain.TelegramUser;
-import com.telegram.drb.repository.IUserRepository;
+import com.telegram.drb.repository.user.IUserRepository;
 import com.telegram.drb.repository.mapper.TelegramUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import static com.telegram.drb.constants.SqlQueries.ADD_TELEGRAM_USER;
 import static com.telegram.drb.constants.SqlQueries.FIND_USER_BY_ID;
@@ -15,6 +16,7 @@ import static com.telegram.drb.constants.SqlQueries.FIND_USER_BY_ID;
  *
  * @author Valentyn Korniienko
  */
+@Repository
 public class UserRepository implements IUserRepository {
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.telegram.drb.service;
+package com.telegram.drb.service.ping;
 
 import com.telegram.drb.model.rest.PingResponse;
 

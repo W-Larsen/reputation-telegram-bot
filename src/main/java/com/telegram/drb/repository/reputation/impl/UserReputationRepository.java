@@ -1,7 +1,7 @@
-package com.telegram.drb.repository.impl;
+package com.telegram.drb.repository.reputation.impl;
 
 import com.telegram.drb.model.domain.UserReputation;
-import com.telegram.drb.repository.IUserReputationRepository;
+import com.telegram.drb.repository.reputation.IUserReputationRepository;
 import com.telegram.drb.repository.mapper.UserReputationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;

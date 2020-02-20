@@ -1,4 +1,4 @@
-package com.telegram.drb.repository;
+package com.telegram.drb.repository.reputation;
 
 import com.telegram.drb.model.domain.UserReputation;
 

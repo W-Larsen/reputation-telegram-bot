@@ -1,4 +1,4 @@
-package com.telegram.drb.service;
+package com.telegram.drb.service.reputation;
 
 import com.telegram.drb.model.domain.UserReputation;
 import org.telegram.telegrambots.meta.api.objects.Chat;

@@ -1,11 +1,12 @@
-package com.telegram.drb.repository.impl;
+package com.telegram.drb.repository.chat.impl;
 
 import com.telegram.drb.model.domain.TelegramChat;
-import com.telegram.drb.repository.IChatRepository;
+import com.telegram.drb.repository.chat.IChatRepository;
 import com.telegram.drb.repository.mapper.TelegramChatMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import static com.telegram.drb.constants.SqlQueries.ADD_TELEGRAM_CHAT;
 import static com.telegram.drb.constants.SqlQueries.FIND_CHAT_BY_ID;
@@ -15,6 +16,7 @@ import static com.telegram.drb.constants.SqlQueries.FIND_CHAT_BY_ID;
  *
  * @author Valentyn Korniienko
  */
+@Repository
 public class ChatRepository implements IChatRepository {
 
     @Autowired
