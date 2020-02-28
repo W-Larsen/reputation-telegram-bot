@@ -1,4 +1,4 @@
-package com.telegram.drb.repository.impl.mapper;
+package com.telegram.drb.repository.mapper;
 
 import com.telegram.drb.model.domain.UserReputation;
 import org.springframework.jdbc.core.RowMapper;
@@ -19,6 +19,8 @@ public class UserReputationMapper implements RowMapper<UserReputation> {
         userReputation.setUserId(rs.getInt("user_id"));
         userReputation.setChatId(rs.getLong("chat_id"));
         userReputation.setReputationValue(rs.getInt("reputation_value"));
+        userReputation.setUpdatedDatetime(rs.getTimestamp("updated_date_time"));
+        userReputation.setUpdatedFrom(rs.getInt("updated_from_id"));
         return userReputation;
     }
 

@@ -1,14 +1,17 @@
-package com.telegram.drb.repository.impl;
+package com.telegram.drb.repository.reputation.impl;
 
 import com.telegram.drb.model.domain.UserReputation;
-import com.telegram.drb.repository.IUserReputationRepository;
-import com.telegram.drb.repository.impl.mapper.UserReputationMapper;
+import com.telegram.drb.repository.mapper.UserReputationMapper;
+import com.telegram.drb.repository.reputation.IUserReputationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 import static com.telegram.drb.constants.SqlQueries.CREATE_USER_REPUTATION;
+import static com.telegram.drb.constants.SqlQueries.FIND_ALL;
 import static com.telegram.drb.constants.SqlQueries.FIND_BY_USER_ID_AND_CHAT_ID;
 import static com.telegram.drb.constants.SqlQueries.INCREASE_USER_REPUTATION;
 import static com.telegram.drb.constants.SqlQueries.REDUCE_USER_REPUTATION;
@@ -27,7 +30,7 @@ public class UserReputationRepository implements IUserReputationRepository {
     @Override
     public UserReputation createUserReputation(UserReputation userReputation) {
         jdbcTemplate.update(CREATE_USER_REPUTATION, userReputation.getUserId(), userReputation.getChatId(),
-                userReputation.getReputationValue());
+                userReputation.getReputationValue(), userReputation.getUpdatedDatetime(), userReputation.getUpdatedFrom());
         return userReputation;
     }
 
@@ -42,12 +45,18 @@ public class UserReputationRepository implements IUserReputationRepository {
 
     @Override
     public void increaseUserReputation(UserReputation userReputation) {
-        jdbcTemplate.update(INCREASE_USER_REPUTATION, userReputation.getUserId(), userReputation.getChatId());
+        jdbcTemplate.update(INCREASE_USER_REPUTATION, userReputation.getUpdatedDatetime(), userReputation.getUpdatedFrom(),
+                userReputation.getUserId(), userReputation.getChatId());
     }
 
     @Override
     public void reduceUserReputation(UserReputation userReputation) {
-        jdbcTemplate.update(REDUCE_USER_REPUTATION, userReputation.getUserId(), userReputation.getChatId());
+        jdbcTemplate.update(REDUCE_USER_REPUTATION, userReputation.getUpdatedDatetime(), userReputation.getUpdatedFrom(),
+                userReputation.getUserId(), userReputation.getChatId());
     }
 
+    @Override
+    public List<UserReputation> findAll() {
+        return jdbcTemplate.query(FIND_ALL, new UserReputationMapper());
+    }
 }

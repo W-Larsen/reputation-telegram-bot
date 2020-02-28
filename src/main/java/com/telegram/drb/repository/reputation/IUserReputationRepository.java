@@ -1,23 +1,21 @@
-package com.telegram.drb.service;
+package com.telegram.drb.repository.reputation;
 
 import com.telegram.drb.model.domain.UserReputation;
-import org.telegram.telegrambots.meta.api.objects.Chat;
-import org.telegram.telegrambots.meta.api.objects.User;
 
-import java.util.function.Consumer;
+import java.util.List;
 
 /**
- * User reputation service interface.
+ * User reputation repository interface.
  *
  * @author Valentyn Korniienko
  */
-public interface IUserReputationService {
+public interface IUserReputationRepository {
 
     /**
      * Create user reputation.
      *
      * @param userReputation the user reputation
-     * @return the user reputation
+     * @return user reputation
      */
     UserReputation createUserReputation(UserReputation userReputation);
 
@@ -29,18 +27,6 @@ public interface IUserReputationService {
      * @return user reputation
      */
     UserReputation findByUserIdAndChatId(Integer userId, Long chatId);
-
-    /**
-     * Manage user reputation.
-     *
-     * @param fromBy        the from user
-     * @param repliedTo     the replied to user
-     * @param chat          the chat
-     * @param action        the action
-     * @param actionMessage the action message
-     * @return response
-     */
-    String manageUserReputation(User fromBy, User repliedTo, Chat chat, Consumer<UserReputation> action, String actionMessage);
 
     /**
      * Increase user reputation.
@@ -56,4 +42,10 @@ public interface IUserReputationService {
      */
     void reduceUserReputation(UserReputation userReputation);
 
+    /**
+     * Finds all user reputations.
+     *
+     * @return list of user reputations
+     */
+    List<UserReputation> findAll();
 }

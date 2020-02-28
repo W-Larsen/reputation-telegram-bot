@@ -4,6 +4,7 @@ import com.telegram.drb.command.Command;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.Map;
@@ -25,13 +26,13 @@ public class CommandHandler {
      * @param message the message.
      * @return command response
      */
-    public String handleMessage(Message message) {
+    public SendMessage handleMessage(Message message) {
         String commandText = message.getText();
-        if (message.isReply() && commandMap.containsKey(commandText)) {
+        if (commandMap.containsKey(commandText)) {
             Command command = commandMap.get(commandText);
             return command.execute(message);
         }
-        return StringUtils.EMPTY;
+        return null;
     }
 
 }

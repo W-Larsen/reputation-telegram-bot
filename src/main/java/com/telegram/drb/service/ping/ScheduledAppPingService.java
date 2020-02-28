@@ -1,4 +1,4 @@
-package com.telegram.drb.service;
+package com.telegram.drb.service.ping;
 
 import com.telegram.drb.bot.DawgReputationBot;
 import com.telegram.drb.client.DawgReputationBotClient;
