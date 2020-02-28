@@ -6,7 +6,7 @@ package com.telegram.drb.constants;
 public final class SqlQueries {
 
     private SqlQueries() {
-        throw new UnsupportedOperationException();
+        throw new IllegalStateException();
     }
 
     //user reputation
@@ -14,6 +14,7 @@ public final class SqlQueries {
     public static final String FIND_BY_USER_ID_AND_CHAT_ID = "select * from user_reputations where user_id = ? and chat_id = ?";
     public static final String INCREASE_USER_REPUTATION = "update user_reputations set reputation_value = reputation_value + 1 where user_id = ? and chat_id = ?";
     public static final String REDUCE_USER_REPUTATION = "update user_reputations set reputation_value = reputation_value - 1 where user_id = ? and chat_id = ?";
+    public static final String FIND_ALL = "select * from user_reputations";
 
     //user
     public static final String ADD_TELEGRAM_USER = "insert into users (user_id, user_name, first_name, last_name) values (?,?,?,?)";

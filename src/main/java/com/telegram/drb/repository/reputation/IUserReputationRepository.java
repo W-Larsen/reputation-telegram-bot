@@ -2,6 +2,8 @@ package com.telegram.drb.repository.reputation;
 
 import com.telegram.drb.model.domain.UserReputation;
 
+import java.util.List;
+
 /**
  * User reputation repository interface.
  *
@@ -40,4 +42,10 @@ public interface IUserReputationRepository {
      */
     void reduceUserReputation(UserReputation userReputation);
 
+    /**
+     * Finds all user reputations.
+     *
+     * @return list of user reputations
+     */
+    List<UserReputation> findAll();
 }

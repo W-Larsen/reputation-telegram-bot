@@ -23,4 +23,9 @@ public class UserService implements IUserService {
             userRepository.addTelegramUser(telegramUser);
         }
     }
+
+    @Override
+    public TelegramUser findById(Integer userId) {
+        return userRepository.findUserById(userId);
+    }
 }

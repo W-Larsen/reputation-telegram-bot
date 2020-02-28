@@ -9,9 +9,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import static com.telegram.drb.constants.SqlQueries.CREATE_USER_REPUTATION;
+import static com.telegram.drb.constants.SqlQueries.FIND_ALL;
 import static com.telegram.drb.constants.SqlQueries.FIND_BY_USER_ID_AND_CHAT_ID;
 import static com.telegram.drb.constants.SqlQueries.INCREASE_USER_REPUTATION;
 import static com.telegram.drb.constants.SqlQueries.REDUCE_USER_REPUTATION;
+
+import java.util.List;
 
 /**
  * User reputation repository implementation.
@@ -50,4 +53,8 @@ public class UserReputationRepository implements IUserReputationRepository {
         jdbcTemplate.update(REDUCE_USER_REPUTATION, userReputation.getUserId(), userReputation.getChatId());
     }
 
+    @Override
+    public List<UserReputation> findAll() {
+        return jdbcTemplate.query(FIND_ALL, new UserReputationMapper());
+    }
 }

@@ -27,7 +27,7 @@ public class CommandHandler {
      */
     public String handleMessage(Message message) {
         String commandText = message.getText();
-        if (message.isReply() && commandMap.containsKey(commandText)) {
+        if (commandMap.containsKey(commandText)) {
             Command command = commandMap.get(commandText);
             return command.execute(message);
         }

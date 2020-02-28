@@ -14,7 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import static org.apache.commons.lang3.math.NumberUtils.INTEGER_ZERO;
 
@@ -64,8 +67,8 @@ public class UserReputationService implements IUserReputationService {
 
         UserReputation actualRepliedToReputation = userReputationRepository.findByUserIdAndChatId(repliedTo.getId(), chat.getId());
         return String.format("%s (%s) %s репутацию %s (%s)",
-                getFullName(fromBy), reputationFromBy.getReputationValue(), actionMessage,
-                getFullName(repliedTo), actualRepliedToReputation.getReputationValue());
+            getFullName(fromBy), reputationFromBy.getReputationValue(), actionMessage,
+            getFullName(repliedTo), actualRepliedToReputation.getReputationValue());
     }
 
     private UserReputation createUserRelation(User user, Chat chat) {
@@ -107,6 +110,15 @@ public class UserReputationService implements IUserReputationService {
     @Override
     public void reduceUserReputation(UserReputation userReputation) {
         userReputationRepository.reduceUserReputation(userReputation);
+    }
+
+    @Override
+    public List<UserReputation> findAll(long limit) {
+        return userReputationRepository.findAll().stream()
+            .limit(limit)
+            .sorted(Comparator.comparing(UserReputation::getReputationValue).reversed()
+                .thenComparing(UserReputation::getUserId))
+            .collect(Collectors.toList());
     }
 
     private UserReputation createUserReputationClass(Integer userId, Long chatId) {

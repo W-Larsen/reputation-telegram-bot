@@ -4,6 +4,7 @@ import com.telegram.drb.model.domain.UserReputation;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -56,4 +57,10 @@ public interface IUserReputationService {
      */
     void reduceUserReputation(UserReputation userReputation);
 
+    /**
+     * Finds all user reputations.
+     *
+     * @return list of user reputations
+     */
+    List<UserReputation> findAll(long limit);
 }

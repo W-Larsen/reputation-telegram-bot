@@ -15,4 +15,12 @@ public interface IUserService {
      * @param telegramUser the telegram user
      */
     void addTelegramUser(TelegramUser telegramUser);
+
+    /**
+     * Finds by user id.
+     *
+     * @param userId the user id
+     * @return telegram user
+     */
+    TelegramUser findById(Integer userId);
 }
