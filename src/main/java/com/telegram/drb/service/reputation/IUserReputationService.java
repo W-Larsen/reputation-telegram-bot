@@ -47,15 +47,17 @@ public interface IUserReputationService {
      * Increase user reputation.
      *
      * @param userReputation the user reputation
+     * @param updatedFrom    the updated from user
      */
-    void increaseUserReputation(UserReputation userReputation);
+    void increaseUserReputation(UserReputation userReputation, User updatedFrom);
 
     /**
      * Reduce user reputation.
      *
      * @param userReputation the user reputation
+     * @param updatedFrom    the updated from user
      */
-    void reduceUserReputation(UserReputation userReputation);
+    void reduceUserReputation(UserReputation userReputation, User updatedFrom);
 
     /**
      * Finds all user reputations.

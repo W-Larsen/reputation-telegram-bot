@@ -9,16 +9,22 @@ import com.telegram.drb.service.reputation.IUserReputationService;
 import com.telegram.drb.service.user.IUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import static com.telegram.drb.constants.Messages.DELAY_MESSAGE_RU;
 import static org.apache.commons.lang3.math.NumberUtils.INTEGER_ZERO;
 
 /**
@@ -35,6 +41,9 @@ public class UserReputationService implements IUserReputationService {
     private IUserService userService;
     @Autowired
     private IChatService chatService;
+
+    @Value("${dawg.default.delay}")
+    private int defaultDelay;
 
     @Override
     public UserReputation createUserReputation(UserReputation userReputation) {
@@ -63,18 +72,37 @@ public class UserReputationService implements IUserReputationService {
             return StringUtils.EMPTY;
         }
 
+        if (!isValidUpdatedTime(fromBy.getId(), reputationRepliedTo)) {
+            return DELAY_MESSAGE_RU;
+        }
+
         action.accept(reputationRepliedTo);
 
         UserReputation actualRepliedToReputation = userReputationRepository.findByUserIdAndChatId(repliedTo.getId(), chat.getId());
         return String.format("%s (%s) %s репутацию %s (%s)",
-            getFullName(fromBy), reputationFromBy.getReputationValue(), actionMessage,
-            getFullName(repliedTo), actualRepliedToReputation.getReputationValue());
+                getFullName(fromBy), reputationFromBy.getReputationValue(), actionMessage,
+                getFullName(repliedTo), actualRepliedToReputation.getReputationValue());
     }
 
     private UserReputation createUserRelation(User user, Chat chat) {
         userService.addTelegramUser(toTelegramUser(user));
         chatService.addTelegramChat(toTelegramChat(chat));
-        return userReputationRepository.createUserReputation(createUserReputationClass(user.getId(), chat.getId()));
+        return userReputationRepository.createUserReputation(createUserReputationClass(user.getId(), chat.getId(), user.getId()));
+    }
+
+    private boolean isValidUpdatedTime(Integer fromById, UserReputation repliedTo) {
+        if (repliedTo.getUpdatedFrom().equals(fromById)) {
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime updatedDateTime = repliedTo.getUpdatedDatetime().toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDateTime();
+
+            Duration duration = Duration.between(now, updatedDateTime);
+            // convert to seconds
+            long diff = Math.abs(duration.toMillis()) / 1000;
+            return diff > defaultDelay;
+        }
+        return true;
     }
 
     private TelegramUser toTelegramUser(User user) {
@@ -103,29 +131,35 @@ public class UserReputationService implements IUserReputationService {
     }
 
     @Override
-    public void increaseUserReputation(UserReputation userReputation) {
+    public void increaseUserReputation(UserReputation userReputation, User updatedFrom) {
+        userReputation.setUpdatedDatetime(Calendar.getInstance().getTime());
+        userReputation.setUpdatedFrom(updatedFrom.getId());
         userReputationRepository.increaseUserReputation(userReputation);
     }
 
     @Override
-    public void reduceUserReputation(UserReputation userReputation) {
+    public void reduceUserReputation(UserReputation userReputation, User updatedFrom) {
+        userReputation.setUpdatedDatetime(Calendar.getInstance().getTime());
+        userReputation.setUpdatedFrom(updatedFrom.getId());
         userReputationRepository.reduceUserReputation(userReputation);
     }
 
     @Override
     public List<UserReputation> findAll(long limit) {
         return userReputationRepository.findAll().stream()
-            .limit(limit)
-            .sorted(Comparator.comparing(UserReputation::getReputationValue).reversed()
-                .thenComparing(UserReputation::getUserId))
-            .collect(Collectors.toList());
+                .limit(limit)
+                .sorted(Comparator.comparing(UserReputation::getReputationValue).reversed()
+                        .thenComparing(UserReputation::getUserId))
+                .collect(Collectors.toList());
     }
 
-    private UserReputation createUserReputationClass(Integer userId, Long chatId) {
+    private UserReputation createUserReputationClass(Integer userId, Long chatId, Integer updatedFromId) {
         UserReputation userReputation = new UserReputation();
         userReputation.setUserId(userId);
         userReputation.setChatId(chatId);
         userReputation.setReputationValue(INTEGER_ZERO);
+        userReputation.setUpdatedDatetime(Calendar.getInstance().getTime());
+        userReputation.setUpdatedFrom(updatedFromId);
         return userReputation;
     }
 

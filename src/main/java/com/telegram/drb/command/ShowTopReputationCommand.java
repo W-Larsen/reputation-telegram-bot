@@ -6,6 +6,7 @@ import com.telegram.drb.service.reputation.IUserReputationService;
 import com.telegram.drb.service.user.IUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -18,30 +19,31 @@ import java.util.List;
  * @author Valentyn Korniienko
  */
 @Component("/toprep@dawgReputationBot")
-public class ShowTopReputationCommand implements Command {
+public class ShowTopReputationCommand extends AbstractCommand implements Command {
 
     @Autowired
     private IUserReputationService userReputationService;
     @Autowired
     private IUserService userService;
 
-    private static final long LIMIT = 10;
+    @Value("${dawg.default.top.limit}")
+    private int defaultLimit;
 
     @Override
     public SendMessage execute(Message message) {
-        StringBuilder response = new StringBuilder();
-        List<UserReputation> orderedByReputation = userReputationService.findAll(LIMIT);
+        StringBuilder responseText = new StringBuilder();
+        List<UserReputation> orderedByReputation = userReputationService.findAll(defaultLimit);
         orderedByReputation.forEach(userReputation -> {
             TelegramUser user = userService.findById(userReputation.getUserId());
             if (user != null) {
-                response
-                    .append("`").append(userReputation.getReputationValue()).append("`")
-                    .append("  ")
-                    .append("[").append(getFullName(user)).append("]").append("(tg://user?id=").append(user.getUserId()).append(")");
+                responseText
+                        .append("`").append(userReputation.getReputationValue()).append("`")
+                        .append("  ")
+                        .append("[").append(getFullName(user)).append("]").append("(tg://user?id=").append(user.getUserId()).append(")");
             }
-            response.append(System.lineSeparator());
+            responseText.append(System.lineSeparator());
         });
-        return createResponseSendMessage(message.getChatId(), response.toString());
+        return createResponseSendMessage(message.getChatId(), responseText.toString());
     }
 
     private String getFullName(TelegramUser user) {
@@ -54,11 +56,9 @@ public class ShowTopReputationCommand implements Command {
     }
 
     private SendMessage createResponseSendMessage(Long chatId, String responseText) {
-        SendMessage response = new SendMessage();
-        response.setChatId(chatId);
-        response.setText(responseText);
-        response.setParseMode("MarkdownV2");
-        return response;
+        SendMessage defaultMessageResponse = createDefaultMessageResponse(chatId, responseText);
+        defaultMessageResponse.setParseMode("MarkdownV2");
+        return defaultMessageResponse;
     }
 
 }

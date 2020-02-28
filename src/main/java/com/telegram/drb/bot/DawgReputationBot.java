@@ -38,13 +38,13 @@ public class DawgReputationBot extends TelegramLongPollingBot {
             Message message = update.getMessage();
             SendMessage response = commandHandler.handleMessage(message);
             try {
-                if (response != null) {
+                if (response != null && StringUtils.isNotEmpty(response.getText())) {
                     execute(response);
-                    LOGGER.info("Sent message \"{}\" to {} chat ", response.getText(), message.getChat().getFirstName());
+                    LOGGER.info("Sent message \"{}\" to {} chat ", response.getText(), message.getChat().getTitle());
                 }
             } catch (TelegramApiException e) {
                 LOGGER.error("Failed to send message \"{}\" to {} chat due to error: {}",
-                    response.getText(), response.getChatId(), e.getMessage());
+                        response.getText(), response.getChatId(), e.getMessage());
             }
         }
     }
