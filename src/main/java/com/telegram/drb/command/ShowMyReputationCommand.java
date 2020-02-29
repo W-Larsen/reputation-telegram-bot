@@ -27,9 +27,16 @@ public class ShowMyReputationCommand extends AbstractCommand implements Command 
         User from = message.getFrom();
         UserReputation userReputation = userReputationService.findByUserIdAndChatId(from.getId(), message.getChatId());
         int actualReputation = userReputation == null ? 0 : userReputation.getReputationValue();
-        String responseText = String.format("*%s*, твоя репутация \\- %s", getFullName(from), actualReputation);
+        String responseText = String.format("*%s*, твоя репутация %s", getFullName(from), "*" + prepareReputationValue(actualReputation) + "*");
 
         return createResponseSendMessage(message, responseText);
+    }
+
+    private String prepareReputationValue(int actualValue) {
+        if (actualValue < 0) {
+            return "\\" + actualValue;
+        }
+        return String.valueOf(actualValue);
     }
 
     private SendMessage createResponseSendMessage(Message message, String responseText) {
