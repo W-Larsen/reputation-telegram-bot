@@ -25,6 +25,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static com.telegram.drb.constants.Messages.DELAY_MESSAGE_RU;
+import static com.telegram.drb.util.UserUtils.getFullName;
 import static org.apache.commons.lang3.math.NumberUtils.INTEGER_ZERO;
 
 /**
@@ -119,15 +120,6 @@ public class UserReputationService implements IUserReputationService {
         telegramChat.setChatId(chat.getId());
         telegramChat.setChatName(chat.getTitle());
         return telegramChat;
-    }
-
-    private String getFullName(User user) {
-        String firstName = user.getFirstName();
-        String lastName = user.getLastName();
-        if (StringUtils.isNotEmpty(lastName)) {
-            return firstName + " " + lastName;
-        }
-        return firstName;
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.telegram.drb.service.ping;
 
 import com.telegram.drb.bot.DawgReputationBot;
 import com.telegram.drb.client.DawgReputationBotClient;
-import com.telegram.drb.model.rest.PingResponse;
+import com.telegram.drb.model.rest.ping.PingResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.telegram.drb.rest;
 
-import com.telegram.drb.model.rest.PingResponse;
+import com.telegram.drb.model.rest.ping.PingResponse;
 import com.telegram.drb.service.ping.impl.PingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

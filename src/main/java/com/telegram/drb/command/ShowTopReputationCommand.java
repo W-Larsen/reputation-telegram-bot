@@ -13,6 +13,8 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.List;
 
+import static com.telegram.drb.model.domain.ParseMode.MARKDOWN_V2;
+
 /**
  * Command to show top user reputations.
  *
@@ -43,7 +45,7 @@ public class ShowTopReputationCommand extends AbstractCommand implements Command
             }
             responseText.append(System.lineSeparator());
         });
-        return createResponseSendMessage(message.getChatId(), responseText.toString());
+        return createResponseSendMessage(message, responseText.toString());
     }
 
     private String getFullName(TelegramUser user) {
@@ -55,9 +57,9 @@ public class ShowTopReputationCommand extends AbstractCommand implements Command
         return firstName;
     }
 
-    private SendMessage createResponseSendMessage(Long chatId, String responseText) {
-        SendMessage defaultMessageResponse = createDefaultMessageResponse(chatId, responseText);
-        defaultMessageResponse.setParseMode("MarkdownV2");
+    private SendMessage createResponseSendMessage(Message message, String responseText) {
+        SendMessage defaultMessageResponse = createDefaultMessageResponse(message.getChatId(), responseText);
+        defaultMessageResponse.setParseMode(MARKDOWN_V2.getValue());
         return defaultMessageResponse;
     }
 

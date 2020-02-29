@@ -1,6 +1,5 @@
-package com.telegram.drb.model.rest;
+package com.telegram.drb.model.rest.ping;
 
-import com.telegram.drb.model.domain.PingStatus;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;

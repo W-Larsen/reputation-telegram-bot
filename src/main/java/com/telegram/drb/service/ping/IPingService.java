@@ -1,6 +1,6 @@
 package com.telegram.drb.service.ping;
 
-import com.telegram.drb.model.rest.PingResponse;
+import com.telegram.drb.model.rest.ping.PingResponse;
 
 /**
  * Ping interface.
