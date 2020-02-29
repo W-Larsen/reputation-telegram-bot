@@ -1,10 +1,10 @@
 package com.telegram.drb.service.ping.impl;
 
-import com.telegram.drb.model.rest.PingResponse;
+import com.telegram.drb.model.rest.ping.PingResponse;
 import com.telegram.drb.service.ping.IPingService;
 import org.springframework.stereotype.Service;
 
-import static com.telegram.drb.model.domain.PingStatus.AVAILABLE;
+import static com.telegram.drb.model.rest.ping.PingStatus.AVAILABLE;
 
 /**
  * Ping implementation.

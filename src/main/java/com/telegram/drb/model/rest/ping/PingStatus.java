@@ -1,4 +1,4 @@
-package com.telegram.drb.model.domain;
+package com.telegram.drb.model.rest.ping;
 
 /**
  * Ping status enum.
