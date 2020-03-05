@@ -1,5 +1,7 @@
 package com.telegram.drb.command;
 
+import static com.telegram.drb.model.domain.ParseMode.MARKDOWN_V2;
+
 import com.telegram.drb.model.domain.TelegramUser;
 import com.telegram.drb.model.domain.UserReputation;
 import com.telegram.drb.service.reputation.IUserReputationService;
@@ -12,8 +14,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.List;
-
-import static com.telegram.drb.model.domain.ParseMode.MARKDOWN_V2;
 
 /**
  * Command to show top user reputations.
@@ -39,9 +39,9 @@ public class ShowTopReputationCommand extends AbstractCommand implements Command
             TelegramUser user = userService.findById(userReputation.getUserId());
             if (user != null) {
                 responseText
-                        .append("`").append(userReputation.getReputationValue()).append("`")
-                        .append("  ")
-                        .append("[").append(getFullName(user)).append("]").append("(tg://user?id=").append(user.getUserId()).append(")");
+                    .append("`").append(userReputation.getReputationValue()).append("`")
+                    .append("  ")
+                    .append("[").append(getFullName(user)).append("]").append("(tg://user?id=").append(user.getUserId()).append(")");
             }
             responseText.append(System.lineSeparator());
         });
@@ -60,6 +60,7 @@ public class ShowTopReputationCommand extends AbstractCommand implements Command
     private SendMessage createResponseSendMessage(Message message, String responseText) {
         SendMessage defaultMessageResponse = createDefaultMessageResponse(message.getChatId(), responseText);
         defaultMessageResponse.setParseMode(MARKDOWN_V2.getValue());
+        defaultMessageResponse.disableWebPagePreview();
         return defaultMessageResponse;
     }
 
