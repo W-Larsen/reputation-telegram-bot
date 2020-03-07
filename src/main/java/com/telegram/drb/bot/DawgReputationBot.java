@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -36,15 +38,29 @@ public class DawgReputationBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         if (update.hasMessage()) {
             Message message = update.getMessage();
-            SendMessage response = commandHandler.handleMessage(message);
+            BotApiMethod<?> response = commandHandler.handleMessage(message);
             try {
-                if (response != null && StringUtils.isNotEmpty(response.getText())) {
-                    execute(response);
-                    LOGGER.info("Sent message \"{}\" to {} chat ", response.getText(), message.getChat().getTitle());
+                if (response != null) {
+                    if (response instanceof SendMessage) {
+                        SendMessage messageResponse = (SendMessage) response;
+                        if (StringUtils.isNotEmpty(messageResponse.getText())) {
+                            execute(messageResponse);
+                            LOGGER.info("Sent message \"{}\" to {} chat ",
+                                    messageResponse.getText(), message.getChat().getTitle());
+                        }
+                    }
+                    if (response instanceof DeleteMessage) {
+                        DeleteMessage deleteMessageResponse = (DeleteMessage) response;
+                        if (deleteMessageResponse.getMessageId() != null) {
+                            execute(deleteMessageResponse);
+                            LOGGER.info("Message with such id {} was successfully deleted",
+                                    deleteMessageResponse.getMessageId());
+                        }
+                    }
+
                 }
             } catch (TelegramApiException e) {
-                LOGGER.error("Failed to send message \"{}\" to {} chat due to error: {}",
-                        response.getText(), response.getChatId(), e.getMessage());
+                LOGGER.error("Failed to send message due to error: {}", e.getMessage());
             }
         }
     }

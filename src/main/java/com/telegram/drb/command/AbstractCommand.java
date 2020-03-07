@@ -3,6 +3,9 @@ package com.telegram.drb.command;
 import org.springframework.beans.factory.annotation.Value;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 /**
  * Abstract class implemented Command.
  *
@@ -12,6 +15,8 @@ public abstract class AbstractCommand implements Command {
 
     @Value("${dawg.reputation.bot.username}")
     protected String botUserName;
+
+    protected Queue<String> messageQueue = new ArrayDeque<>();
 
     /**
      * Create default message response.

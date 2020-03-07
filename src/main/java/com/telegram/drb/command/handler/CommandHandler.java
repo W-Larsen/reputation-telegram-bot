@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
@@ -48,7 +49,7 @@ public class CommandHandler {
      * @param message the message.
      * @return command response
      */
-    public SendMessage handleMessage(Message message) {
+    public BotApiMethod<?> handleMessage(Message message) {
         String commandText = message.getText();
         String possibleCommand = getPossibleCommand(commandText);
         commandText = StringUtils.isEmpty(possibleCommand) ? commandText : possibleCommand;

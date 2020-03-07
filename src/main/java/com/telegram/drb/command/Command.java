@@ -1,5 +1,6 @@
 package com.telegram.drb.command;
 
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
@@ -16,6 +17,6 @@ public interface Command {
      * @param message the message
      * @return response
      */
-    SendMessage execute(Message message);
+    BotApiMethod<Message> execute(Message message);
 
 }
