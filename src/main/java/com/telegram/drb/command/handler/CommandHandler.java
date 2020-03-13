@@ -56,7 +56,7 @@ public class CommandHandler {
         String commandText = message.getText();
         String possibleCommand = getPossibleCommand(commandText);
         commandText = StringUtils.isEmpty(possibleCommand) ? commandText : possibleCommand;
-        if (commandMap.containsKey(commandText)) {
+        if (commandMap.containsKey(commandText.toLowerCase())) {
             Command command = commandMap.get(commandText);
             return command.execute(message);
         }

@@ -37,7 +37,6 @@ public class ShowTopReputationCommand extends AbstractCommand implements Command
 
     @Override
     public BotApiMethodResponse execute(Message message) {
-        MessageEntity entity = new MessageEntity();
         StringBuilder responseText = new StringBuilder();
         List<UserReputation> orderedByReputation = userReputationService.findAll(defaultLimit);
         orderedByReputation.forEach(userReputation -> {
