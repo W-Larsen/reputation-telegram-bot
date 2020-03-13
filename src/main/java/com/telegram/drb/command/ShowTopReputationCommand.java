@@ -2,6 +2,7 @@ package com.telegram.drb.command;
 
 import com.telegram.drb.model.domain.TelegramUser;
 import com.telegram.drb.model.domain.UserReputation;
+import com.telegram.drb.model.message.BotApiMethodResponse;
 import com.telegram.drb.service.reputation.IUserReputationService;
 import com.telegram.drb.service.user.IUserService;
 import org.apache.commons.lang3.StringUtils;
@@ -10,10 +11,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.MessageEntity;
 
+import java.util.Collections;
 import java.util.List;
 
-import static com.telegram.drb.model.domain.ParseMode.MARKDOWN_V2;
+import static com.telegram.drb.model.domain.ParseMode.MARKDOWN;
+import static com.telegram.drb.model.message.MethodName.SHOT_TOP_REPUTATION;
 
 /**
  * Command to show top user reputations.
@@ -32,7 +36,8 @@ public class ShowTopReputationCommand extends AbstractCommand implements Command
     private int defaultLimit;
 
     @Override
-    public SendMessage execute(Message message) {
+    public BotApiMethodResponse execute(Message message) {
+        MessageEntity entity = new MessageEntity();
         StringBuilder responseText = new StringBuilder();
         List<UserReputation> orderedByReputation = userReputationService.findAll(defaultLimit);
         orderedByReputation.forEach(userReputation -> {
@@ -41,11 +46,11 @@ public class ShowTopReputationCommand extends AbstractCommand implements Command
                 responseText
                         .append("`").append(userReputation.getReputationValue()).append("`")
                         .append("  ")
-                        .append("[").append(getFullName(user)).append("]").append("(tg://user?id=").append(user.getUserId()).append(")");
+                        .append("*").append(getFullName(user)).append("*");
             }
             responseText.append(System.lineSeparator());
         });
-        return createResponseSendMessage(message, responseText.toString());
+        return createBotApiMethodResponse(Collections.singletonList(createResponseSendMessage(message, responseText.toString())), SHOT_TOP_REPUTATION);
     }
 
     private String getFullName(TelegramUser user) {
@@ -58,8 +63,9 @@ public class ShowTopReputationCommand extends AbstractCommand implements Command
     }
 
     private SendMessage createResponseSendMessage(Message message, String responseText) {
-        SendMessage defaultMessageResponse = createDefaultMessageResponse(message.getChatId(), responseText);
-        defaultMessageResponse.setParseMode(MARKDOWN_V2.getValue());
+        SendMessage defaultMessageResponse = createDefaultSendMessageResponse(message.getChatId(), responseText);
+        defaultMessageResponse.setParseMode(MARKDOWN.getValue());
+        defaultMessageResponse.disableWebPagePreview();
         return defaultMessageResponse;
     }
 

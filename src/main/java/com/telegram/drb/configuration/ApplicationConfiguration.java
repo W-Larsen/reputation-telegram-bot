@@ -10,8 +10,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
+import org.telegram.telegrambots.meta.api.objects.Message;
 
 import javax.sql.DataSource;
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 /**
  * Database configuration.
@@ -63,6 +66,16 @@ public class ApplicationConfiguration {
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+
+    /**
+     * Message queue.
+     *
+     * @return message queue
+     */
+    @Bean
+    public Queue<Message> messageQueue() {
+        return new ArrayDeque<>();
     }
 
 }
