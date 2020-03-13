@@ -56,7 +56,7 @@ public class CommandHandler {
         String commandText = message.getText();
         String possibleCommand = getPossibleCommand(commandText);
         commandText = StringUtils.isEmpty(possibleCommand) ? commandText : possibleCommand;
-        if (commandMap.containsKey(commandText.toLowerCase())) {
+        if (commandMap.containsKey(commandText)) {
             Command command = commandMap.get(commandText);
             return command.execute(message);
         }
@@ -65,7 +65,7 @@ public class CommandHandler {
 
     private String getPossibleCommand(String commandText) {
         return relatedMessages.entrySet().stream()
-                .filter(entry -> entry.getValue().contains(commandText))
+                .filter(entry -> entry.getValue().stream().anyMatch(commandText::equalsIgnoreCase))
                 .map(Map.Entry::getKey)
                 .findFirst()
                 .orElse(StringUtils.EMPTY);
