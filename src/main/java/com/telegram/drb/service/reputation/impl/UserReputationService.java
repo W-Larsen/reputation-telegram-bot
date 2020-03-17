@@ -109,10 +109,14 @@ public class UserReputationService implements IUserReputationService {
     private TelegramUser toTelegramUser(User user) {
         TelegramUser telegramUser = new TelegramUser();
         telegramUser.setUserId(user.getId());
-        telegramUser.setUserName(user.getUserName());
+        telegramUser.setUserName(getUserName(user));
         telegramUser.setFirstName(user.getFirstName());
         telegramUser.setLastName(user.getLastName());
         return telegramUser;
+    }
+
+    private String getUserName(User user) {
+        return StringUtils.isEmpty(user.getUserName()) ? user.getFirstName() : user.getFirstName();
     }
 
     private TelegramChat toTelegramChat(Chat chat) {
