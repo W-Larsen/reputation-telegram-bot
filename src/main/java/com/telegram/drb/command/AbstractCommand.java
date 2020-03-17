@@ -16,9 +16,6 @@ import java.util.List;
  */
 public abstract class AbstractCommand implements Command {
 
-    @Value("${dawg.reputation.bot.username}")
-    protected String botUserName;
-
     /**
      * Create Bot api method response.
      *
