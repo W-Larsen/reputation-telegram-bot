@@ -34,9 +34,9 @@ public class CommandHandler {
     @Autowired
     private Map<String, Command> commandMap;
 
-    @Value("${+}")
+    @Value("${plus}")
     private String plusMessages;
-    @Value("${-}")
+    @Value("${minus}")
     private String minusMessages;
 
     private Map<String, List<String>> relatedMessages;
