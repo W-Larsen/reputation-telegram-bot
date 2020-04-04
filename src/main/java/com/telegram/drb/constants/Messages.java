@@ -8,5 +8,5 @@ public final class Messages {
 
     public static final String INCREASED_RU = "увеличил";
     public static final String REDUCED_RU = "уменьшил";
-    public static final String DELAY_MESSAGE_RU = "Не так часто! Пожалуйста, подожди 30 секунд.";
+    public static final String DELAY_MESSAGE_RU = "Не так часто! Пожалуйста, подожди 1 минуту.";
 }
