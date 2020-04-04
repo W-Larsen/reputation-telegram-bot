@@ -1,5 +1,6 @@
 package com.telegram.drb.repository.reputation;
 
+import com.telegram.drb.model.domain.Sort;
 import com.telegram.drb.model.domain.UserReputation;
 
 import java.util.List;
@@ -45,7 +46,8 @@ public interface IUserReputationRepository {
     /**
      * Finds all user reputations.
      *
+     * @param sort the sort
      * @return list of user reputations
      */
-    List<UserReputation> findAll();
+    List<UserReputation> findAll(Sort sort);
 }

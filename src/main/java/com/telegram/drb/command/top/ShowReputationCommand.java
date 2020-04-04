@@ -1,5 +1,7 @@
-package com.telegram.drb.command;
+package com.telegram.drb.command.top;
 
+import com.telegram.drb.command.AbstractCommand;
+import com.telegram.drb.model.domain.Sort;
 import com.telegram.drb.model.domain.TelegramUser;
 import com.telegram.drb.model.domain.UserReputation;
 import com.telegram.drb.model.message.BotApiMethodResponse;
@@ -8,24 +10,16 @@ import com.telegram.drb.service.user.IUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.MessageEntity;
 
 import java.util.Collections;
 import java.util.List;
 
 import static com.telegram.drb.model.domain.ParseMode.MARKDOWN;
-import static com.telegram.drb.model.message.MethodName.SHOT_TOP_REPUTATION;
+import static com.telegram.drb.model.message.MethodName.SHOW_LIST_REPUTATION;
 
-/**
- * Command to show top user reputations.
- *
- * @author Valentyn Korniienko
- */
-@Component("/toprep@dawgReputationBot")
-public class ShowTopReputationCommand extends AbstractCommand implements Command {
+public abstract class ShowReputationCommand extends AbstractCommand {
 
     @Autowired
     private IUserReputationService userReputationService;
@@ -35,10 +29,9 @@ public class ShowTopReputationCommand extends AbstractCommand implements Command
     @Value("${dawg.default.top.limit}")
     private int defaultLimit;
 
-    @Override
-    public BotApiMethodResponse execute(Message message) {
+    protected BotApiMethodResponse executeShowReputation(Message message, Sort sort) {
         StringBuilder responseText = new StringBuilder();
-        List<UserReputation> orderedByReputation = userReputationService.findAll(defaultLimit);
+        List<UserReputation> orderedByReputation = userReputationService.findAll(defaultLimit, sort);
         orderedByReputation.forEach(userReputation -> {
             TelegramUser user = userService.findById(userReputation.getUserId());
             if (user != null) {
@@ -49,7 +42,7 @@ public class ShowTopReputationCommand extends AbstractCommand implements Command
             }
             responseText.append(System.lineSeparator());
         });
-        return createBotApiMethodResponse(Collections.singletonList(createResponseSendMessage(message, responseText.toString())), SHOT_TOP_REPUTATION);
+        return createBotApiMethodResponse(Collections.singletonList(createResponseSendMessage(message, responseText.toString())), SHOW_LIST_REPUTATION);
     }
 
     private String getFullName(TelegramUser user) {

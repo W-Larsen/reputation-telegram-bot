@@ -21,7 +21,7 @@ public final class SqlQueries {
             "updated_date_time = ?, " +
             "updated_from_id = ? " +
             "where user_id = ? and chat_id = ?";
-    public static final String FIND_ALL = "select * from user_reputations order by reputation_value desc";
+    public static final String FIND_ALL = "select * from user_reputations order by reputation_value ";
 
     //user
     public static final String ADD_TELEGRAM_USER = "insert into users (user_id, user_name, first_name, last_name) values (?,?,?,?)";
