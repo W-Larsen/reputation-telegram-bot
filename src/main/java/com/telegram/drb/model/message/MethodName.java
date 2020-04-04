@@ -9,7 +9,7 @@ public enum MethodName {
 
     SHOW_MY_REPUTATION,
 
-    SHOT_TOP_REPUTATION,
+    SHOW_LIST_REPUTATION,
 
     NO_METHOD
 }

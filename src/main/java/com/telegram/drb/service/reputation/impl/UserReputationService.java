@@ -1,5 +1,6 @@
 package com.telegram.drb.service.reputation.impl;
 
+import com.telegram.drb.model.domain.Sort;
 import com.telegram.drb.model.domain.TelegramChat;
 import com.telegram.drb.model.domain.TelegramUser;
 import com.telegram.drb.model.domain.UserReputation;
@@ -141,11 +142,9 @@ public class UserReputationService implements IUserReputationService {
     }
 
     @Override
-    public List<UserReputation> findAll(long limit) {
-        return userReputationRepository.findAll().stream()
+    public List<UserReputation> findAll(long limit, Sort sort) {
+        return userReputationRepository.findAll(sort).stream()
                 .limit(limit)
-                .sorted(Comparator.comparing(UserReputation::getReputationValue).reversed()
-                        .thenComparing(UserReputation::getUserId))
                 .collect(Collectors.toList());
     }
 
