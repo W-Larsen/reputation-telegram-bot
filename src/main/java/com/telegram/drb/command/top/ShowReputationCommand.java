@@ -18,6 +18,7 @@ import java.util.List;
 
 import static com.telegram.drb.model.domain.ParseMode.MARKDOWN;
 import static com.telegram.drb.model.message.MethodName.SHOW_LIST_REPUTATION;
+import static java.util.Collections.singletonList;
 
 public abstract class ShowReputationCommand extends AbstractCommand {
 
@@ -42,7 +43,7 @@ public abstract class ShowReputationCommand extends AbstractCommand {
             }
             responseText.append(System.lineSeparator());
         });
-        return createBotApiMethodResponse(Collections.singletonList(createResponseSendMessage(message, responseText.toString())), SHOW_LIST_REPUTATION);
+        return createBotApiMethodResponse(singletonList(createResponseSendMessage(message, responseText.toString())), SHOW_LIST_REPUTATION);
     }
 
     private String getFullName(TelegramUser user) {

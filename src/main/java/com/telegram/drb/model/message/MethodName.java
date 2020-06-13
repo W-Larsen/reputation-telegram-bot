@@ -11,5 +11,7 @@ public enum MethodName {
 
     SHOW_LIST_REPUTATION,
 
+    HEALTH_CHECK,
+
     NO_METHOD
 }

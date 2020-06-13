@@ -59,11 +59,13 @@ public class CommandHandler {
      */
     public BotApiMethodResponse handleMessage(Message message) {
         String commandText = message.getText();
-        String possibleCommand = getPossibleCommand(commandText);
-        commandText = StringUtils.isEmpty(possibleCommand) ? commandText : possibleCommand;
-        if (commandMap.containsKey(commandText)) {
-            Command command = commandMap.get(commandText);
-            return command.execute(message);
+        if (StringUtils.isNotEmpty(commandText)) {
+            String possibleCommand = getPossibleCommand(commandText);
+            commandText = StringUtils.isEmpty(possibleCommand) ? commandText : possibleCommand;
+            if (commandMap.containsKey(commandText)) {
+                Command command = commandMap.get(commandText);
+                return command.execute(message);
+            }
         }
         return defaultBotApiMethodResponse;
     }
