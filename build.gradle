@@ -1,12 +1,12 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.1.6.RELEASE'
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
 }
 
 group 'com.reputation-telegram-bot'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.11
 
 repositories {
     mavenCentral()
@@ -15,9 +15,9 @@ repositories {
 dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 
-    compile group: 'org.telegram', name: 'telegrambots-spring-boot-starter', version: '4.4.0.1'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.6.RELEASE'
-    compile group: 'org.springframework', name: 'spring-jdbc', version: '5.0.2.RELEASE'
+    compile group: 'org.telegram', name: 'telegrambots-spring-boot-starter', version: '4.9'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.2.2.RELEASE'
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '5.2.2.RELEASE'
 
     compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
 
