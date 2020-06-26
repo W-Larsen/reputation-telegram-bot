@@ -1,5 +1,7 @@
-package com.telegram.drb.command;
+package com.telegram.drb.command.show.me;
 
+import com.telegram.drb.command.AbstractCommand;
+import com.telegram.drb.command.Command;
 import com.telegram.drb.model.domain.UserReputation;
 import com.telegram.drb.model.message.BotApiMethodResponse;
 import com.telegram.drb.service.reputation.IUserReputationService;

@@ -1,8 +1,10 @@
-package com.telegram.drb.command;
+package com.telegram.drb.command.health;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.telegram.drb.client.DawgReputationBotClient;
+import com.telegram.drb.command.AbstractCommand;
+import com.telegram.drb.command.Command;
 import com.telegram.drb.model.message.BotApiMethodResponse;
 import com.telegram.drb.model.rest.ping.PingResponse;
 import org.slf4j.Logger;

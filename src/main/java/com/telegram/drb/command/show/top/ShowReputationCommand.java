@@ -1,4 +1,4 @@
-package com.telegram.drb.command.top;
+package com.telegram.drb.command.show.top;
 
 import com.telegram.drb.command.AbstractCommand;
 import com.telegram.drb.model.domain.Sort;

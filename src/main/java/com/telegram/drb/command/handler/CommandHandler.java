@@ -86,9 +86,7 @@ public class CommandHandler {
 
     private void logInfo(Map<String, List<String>> relatedMessages) {
         LOGGER.info("Related messages was uploaded. List of messages: ");
-        relatedMessages.forEach((key, value) -> {
-            LOGGER.info(String.format("Key: %s. Values: %s", key, value));
-        });
+        relatedMessages.forEach((key, value) -> LOGGER.info(String.format("Key: %s. Values: %s", key, value)));
     }
 
 }

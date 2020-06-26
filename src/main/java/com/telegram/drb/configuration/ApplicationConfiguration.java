@@ -1,5 +1,7 @@
 package com.telegram.drb.configuration;
 
+import com.telegram.drb.model.cache.StatisticCacheBuilder;
+import com.telegram.drb.service.cache.CacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -76,6 +78,18 @@ public class ApplicationConfiguration {
     @Bean
     public Queue<Message> messageQueue() {
         return new ArrayDeque<>();
+    }
+
+    /**
+     * Cache service.
+     *
+     * @return statistic cache service
+     */
+    @Bean
+    public CacheService<String, Long> cacheService() {
+        return StatisticCacheBuilder.newBuilder()
+                .expirationByCron(environment.getProperty("dawg.cache.scheduled.cron"))
+                .build();
     }
 
 }
