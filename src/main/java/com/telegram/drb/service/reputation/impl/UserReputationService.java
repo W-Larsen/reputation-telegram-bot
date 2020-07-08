@@ -4,6 +4,8 @@ import com.telegram.drb.model.domain.Sort;
 import com.telegram.drb.model.domain.TelegramChat;
 import com.telegram.drb.model.domain.TelegramUser;
 import com.telegram.drb.model.domain.UserReputation;
+import com.telegram.drb.model.rest.reputation.ReputationRequest;
+import com.telegram.drb.model.rest.reputation.ReputationResponse;
 import com.telegram.drb.repository.reputation.IUserReputationRepository;
 import com.telegram.drb.service.chat.IChatService;
 import com.telegram.drb.service.reputation.IUserReputationService;
@@ -46,6 +48,8 @@ public class UserReputationService implements IUserReputationService {
 
     @Value("${dawg.default.delay}")
     private int defaultDelay;
+    @Value("${dawg.reputation.ignore.list.ids}")
+    private List<String> ignoreList;
 
     @Override
     public UserReputation createUserReputation(UserReputation userReputation) {
@@ -76,6 +80,12 @@ public class UserReputationService implements IUserReputationService {
 
         if (!isValidUpdatedTime(fromBy.getId(), reputationRepliedTo)) {
             return DELAY_MESSAGE_RU;
+        }
+
+        if (ignoreList.contains(reputationRepliedTo.getUserId().toString())) {
+            return String.format("%s (%s) НЕ %s репутацию %s (%s)",
+                    getFullName(fromBy), reputationFromBy.getReputationValue(), actionMessage,
+                    getFullName(repliedTo), reputationRepliedTo.getReputationValue());
         }
 
         action.accept(reputationRepliedTo);
@@ -148,6 +158,13 @@ public class UserReputationService implements IUserReputationService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public ReputationResponse updateUserReputation(ReputationRequest reputationRequest) {
+        userReputationRepository.updateUserReputation(reputationRequest.getUserId(),
+                reputationRequest.getChatId(), reputationRequest.getReputation());
+        return createReputationResponse(reputationRequest);
+    }
+
     private UserReputation createUserReputationClass(Integer userId, Long chatId, Integer updatedFromId) {
         UserReputation userReputation = new UserReputation();
         userReputation.setUserId(userId);
@@ -156,6 +173,14 @@ public class UserReputationService implements IUserReputationService {
         userReputation.setUpdatedDatetime(Calendar.getInstance().getTime());
         userReputation.setUpdatedFrom(updatedFromId);
         return userReputation;
+    }
+
+    private ReputationResponse createReputationResponse(ReputationRequest reputationRequest) {
+        ReputationResponse reputationResponse = new ReputationResponse();
+        reputationResponse.setUserId(reputationRequest.getUserId());
+        reputationResponse.setChatId(reputationRequest.getChatId());
+        reputationResponse.setReputation(reputationRequest.getReputation());
+        return reputationResponse;
     }
 
 }
