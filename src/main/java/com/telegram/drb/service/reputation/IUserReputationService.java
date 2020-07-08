@@ -2,6 +2,8 @@ package com.telegram.drb.service.reputation;
 
 import com.telegram.drb.model.domain.Sort;
 import com.telegram.drb.model.domain.UserReputation;
+import com.telegram.drb.model.rest.reputation.ReputationRequest;
+import com.telegram.drb.model.rest.reputation.ReputationResponse;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 
@@ -68,4 +70,12 @@ public interface IUserReputationService {
      * @return list of user reputations
      */
     List<UserReputation> findAll(long limit, Sort sort);
+
+    /**
+     * Update user reputation.
+     *
+     * @param reputationRequest the reputation request
+     * @return reputation response
+     */
+    ReputationResponse updateUserReputation(ReputationRequest reputationRequest);
 }

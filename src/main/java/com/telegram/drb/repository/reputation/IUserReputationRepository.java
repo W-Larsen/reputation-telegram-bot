@@ -50,4 +50,13 @@ public interface IUserReputationRepository {
      * @return list of user reputations
      */
     List<UserReputation> findAll(Sort sort);
+
+    /**
+     * Update reputation value.
+     *
+     * @param userId          the user id
+     * @param chatId          the chat id
+     * @param reputationValue the reputation value
+     */
+    void updateUserReputation(Integer userId, Long chatId, Integer reputationValue);
 }

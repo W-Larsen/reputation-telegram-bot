@@ -17,6 +17,7 @@ import static com.telegram.drb.constants.SqlQueries.FIND_ALL;
 import static com.telegram.drb.constants.SqlQueries.FIND_BY_USER_ID_AND_CHAT_ID;
 import static com.telegram.drb.constants.SqlQueries.INCREASE_USER_REPUTATION;
 import static com.telegram.drb.constants.SqlQueries.REDUCE_USER_REPUTATION;
+import static com.telegram.drb.constants.SqlQueries.UPDATE_REPUTATION_VALUE;
 
 /**
  * User reputation repository implementation.
@@ -60,5 +61,10 @@ public class UserReputationRepository implements IUserReputationRepository {
     @Override
     public List<UserReputation> findAll(Sort sort) {
         return jdbcTemplate.query(FIND_ALL + sort.getValue(),  new UserReputationMapper());
+    }
+
+    @Override
+    public void updateUserReputation(Integer userId, Long chatId, Integer reputationValue) {
+        jdbcTemplate.update(UPDATE_REPUTATION_VALUE, reputationValue, userId, chatId);
     }
 }
