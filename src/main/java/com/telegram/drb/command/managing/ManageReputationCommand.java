@@ -34,7 +34,7 @@ public abstract class ManageReputationCommand extends AbstractCommand implements
     protected BotApiMethodResponse executeChangingReputation(Message message, Consumer<UserReputation> action, String actionMessage) {
         if (message.isReply()) {
             User repliedTo = message.getReplyToMessage().getFrom();
-            if (!repliedTo.getBot()) {
+            if (!repliedTo.getBot() && !isTheSameUser(message.getFrom(), repliedTo)) {
                 List<BotApiMethod<?>> botApiMethodsResponse = new LinkedList<>();
 
                 if (!CollectionUtils.isEmpty(messageQueue)) {
@@ -48,6 +48,10 @@ public abstract class ManageReputationCommand extends AbstractCommand implements
             }
         }
         return null;
+    }
+
+    private boolean isTheSameUser(User messageFrom, User repliedTo) {
+        return messageFrom.getId().equals(repliedTo.getId());
     }
 
 }
