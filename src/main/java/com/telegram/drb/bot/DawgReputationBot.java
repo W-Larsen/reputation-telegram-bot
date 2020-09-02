@@ -20,6 +20,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Queue;
 import java.util.function.BiConsumer;
 
@@ -60,9 +61,11 @@ public class DawgReputationBot extends TelegramLongPollingBot {
         if (update.hasMessage()) {
             Message message = update.getMessage();
             BotApiMethodResponse botApiMethodsResponse = commandHandler.handleMessage(message);
-            botApiMethodsResponse.getBotApiMethods()
-                    .forEach(response -> botApiMethodsExecute.get(response.getMethod())
-                            .accept(response, botApiMethodsResponse.getMethodName()));
+            if (!Objects.isNull(botApiMethodsResponse)) {
+                botApiMethodsResponse.getBotApiMethods()
+                        .forEach(response -> botApiMethodsExecute.get(response.getMethod())
+                                .accept(response, botApiMethodsResponse.getMethodName()));
+            }
         }
     }
 
