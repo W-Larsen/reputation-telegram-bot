@@ -1,7 +1,6 @@
 package com.telegram.rtb.command.top;
 
 import com.telegram.rtb.command.AbstractCommand;
-import com.telegram.rtb.model.domain.Sort;
 import com.telegram.rtb.model.domain.TelegramUser;
 import com.telegram.rtb.model.domain.UserReputation;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
@@ -10,6 +9,7 @@ import com.telegram.rtb.service.user.IUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
@@ -33,7 +33,7 @@ public abstract class ShowReputationCommand extends AbstractCommand {
         StringBuilder responseText = new StringBuilder();
         List<UserReputation> orderedByReputation = userReputationService.findAll(defaultLimit, sort);
         orderedByReputation.forEach(userReputation -> {
-            TelegramUser user = userService.findById(userReputation.getUserId());
+            TelegramUser user = userService.findById(userReputation.getUserReputationPk().getUserId());
             if (user != null) {
                 responseText
                         .append("`").append(userReputation.getReputationValue()).append("`")

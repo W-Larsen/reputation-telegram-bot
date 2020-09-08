@@ -1,9 +1,9 @@
 package com.telegram.rtb.service.reputation;
 
-import com.telegram.rtb.model.domain.Sort;
 import com.telegram.rtb.model.domain.UserReputation;
 import com.telegram.rtb.model.rest.reputation.ReputationRequest;
 import com.telegram.rtb.model.rest.reputation.ReputationResponse;
+import org.springframework.data.domain.Sort;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 

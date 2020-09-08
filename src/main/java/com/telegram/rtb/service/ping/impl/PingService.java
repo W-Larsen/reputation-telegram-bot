@@ -20,9 +20,9 @@ public class PingService implements IPingService {
     }
 
     private PingResponse createPingResponse() {
-        PingResponse response = new PingResponse();
-        response.setStatus(AVAILABLE);
-        response.setMessage("Service is available");
-        return response;
+        return PingResponse.builder()
+                .status(AVAILABLE)
+                .message("Service is available")
+                .build();
     }
 }

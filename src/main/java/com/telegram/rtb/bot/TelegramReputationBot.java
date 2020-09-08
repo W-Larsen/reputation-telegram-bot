@@ -14,6 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -51,10 +52,11 @@ public class TelegramReputationBot extends TelegramLongPollingBot {
         }
     }
 
-    private Function<BotApiMethod<?>, Message> executeMessage() {
+    @SuppressWarnings("unchecked")
+    private <T extends Serializable> Function<BotApiMethod<?>, T> executeMessage() {
         return (BotApiMethod<?> botApiMethod) -> {
             try {
-                return (Message) execute(botApiMethod);
+                return (T) execute(botApiMethod);
             } catch (TelegramApiException e) {
                 LOGGER.error("Failed to send message due to error: {}", e.getMessage());
                 throw new RuntimeException(e);

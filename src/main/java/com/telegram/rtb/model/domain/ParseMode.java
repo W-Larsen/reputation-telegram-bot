@@ -1,8 +1,13 @@
 package com.telegram.rtb.model.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 /**
  * Parse mode.
  */
+@NoArgsConstructor
+@AllArgsConstructor
 public enum ParseMode {
 
     MARKDOWN("Markdown"),
@@ -12,10 +17,6 @@ public enum ParseMode {
     HTML("HTML");
 
     private String value;
-
-    ParseMode(String value) {
-        this.value = value;
-    }
 
     /**
      * Gets parse mode value.

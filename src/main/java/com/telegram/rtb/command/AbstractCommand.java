@@ -23,10 +23,10 @@ public abstract class AbstractCommand implements Command {
      * @return bot api method response
      */
     protected BotApiMethodResponse createBotApiMethodResponse(List<BotApiMethod<?>> botApiMethods, MethodName methodName) {
-        BotApiMethodResponse response = new BotApiMethodResponse();
-        response.setBotApiMethods(botApiMethods);
-        response.setMethodName(methodName);
-        return response;
+        return BotApiMethodResponse.builder()
+                .botApiMethods(botApiMethods)
+                .methodName(methodName)
+                .build();
     }
 
     /**

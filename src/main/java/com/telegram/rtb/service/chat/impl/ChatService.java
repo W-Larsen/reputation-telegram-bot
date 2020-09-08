@@ -1,7 +1,7 @@
 package com.telegram.rtb.service.chat.impl;
 
 import com.telegram.rtb.model.domain.TelegramChat;
-import com.telegram.rtb.repository.chat.IChatRepository;
+import com.telegram.rtb.repository.ChatRepository;
 import com.telegram.rtb.service.chat.IChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +15,12 @@ import org.springframework.stereotype.Service;
 public class ChatService implements IChatService {
 
     @Autowired
-    private IChatRepository chatRepository;
+    private ChatRepository chatRepository;
 
     @Override
     public void addTelegramChat(TelegramChat telegramChat) {
         if (chatRepository.findChatById(telegramChat.getChatId()) == null) {
-            chatRepository.addTelegramChat(telegramChat);
+            chatRepository.save(telegramChat);
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.telegram.rtb.command.top;
 
-import com.telegram.rtb.model.domain.Sort;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
@@ -15,7 +15,7 @@ public class ShowMinReputationCommand extends ShowReputationCommand {
 
     @Override
     public BotApiMethodResponse execute(Message message) {
-        return executeShowReputation(message, Sort.ASC);
+        return executeShowReputation(message, Sort.by("reputationValue").ascending());
     }
 
 }
