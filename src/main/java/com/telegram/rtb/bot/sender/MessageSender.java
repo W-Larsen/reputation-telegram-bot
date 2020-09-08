@@ -1,6 +1,6 @@
 package com.telegram.rtb.bot.sender;
 
-import com.telegram.rtb.bot.executors.MessageExecutor;
+import com.telegram.rtb.bot.executor.MessageExecutor;
 import com.telegram.rtb.model.message.MethodName;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;

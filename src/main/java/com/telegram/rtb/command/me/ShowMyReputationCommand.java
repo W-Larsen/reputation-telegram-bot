@@ -1,5 +1,7 @@
-package com.telegram.rtb.command;
+package com.telegram.rtb.command.me;
 
+import com.telegram.rtb.command.AbstractCommand;
+import com.telegram.rtb.command.Command;
 import com.telegram.rtb.model.domain.UserReputation;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import com.telegram.rtb.service.reputation.IUserReputationService;

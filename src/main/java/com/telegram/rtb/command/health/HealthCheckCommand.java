@@ -1,8 +1,10 @@
-package com.telegram.rtb.command;
+package com.telegram.rtb.command.health;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.telegram.rtb.client.TelegramReputationBotClient;
+import com.telegram.rtb.command.AbstractCommand;
+import com.telegram.rtb.command.Command;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import com.telegram.rtb.model.rest.ping.PingResponse;
 import org.slf4j.Logger;

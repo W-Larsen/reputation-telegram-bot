@@ -1,6 +1,5 @@
-package com.telegram.rtb.bot.executors;
+package com.telegram.rtb.bot.executor;
 
-import com.telegram.rtb.bot.TelegramReputationBot;
 import com.telegram.rtb.model.message.MethodName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +16,9 @@ import java.util.function.Function;
  * @author Valentyn Korniienko
  */
 @Component
-public class DeleteMessageExecutor extends TelegramReputationBot implements MessageExecutor {
+public class DeleteMessageExecutor implements MessageExecutor {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SendMessageExecutor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DeleteMessageExecutor.class);
 
     @Override
     public String getMethodName() {

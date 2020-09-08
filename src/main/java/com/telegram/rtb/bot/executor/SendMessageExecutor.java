@@ -1,6 +1,5 @@
-package com.telegram.rtb.bot.executors;
+package com.telegram.rtb.bot.executor;
 
-import com.telegram.rtb.bot.TelegramReputationBot;
 import com.telegram.rtb.model.message.MethodName;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -22,7 +21,7 @@ import static com.telegram.rtb.model.message.MethodName.MANAGE_REPUTATION;
  * @author Valentyn Korniienko
  */
 @Component
-public class SendMessageExecutor extends TelegramReputationBot implements MessageExecutor {
+public class SendMessageExecutor implements MessageExecutor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SendMessageExecutor.class);
 
