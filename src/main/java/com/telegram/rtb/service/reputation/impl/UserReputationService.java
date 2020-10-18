@@ -62,9 +62,8 @@ public class UserReputationService implements IUserReputationService {
     }
 
     @Override
-    public UserReputation findByUserIdAndChatId(Integer userId, Long chatId) {
-        return userReputationRepository.findByUserIdAndChatId(userId, chatId)
-                .orElse(null);
+    public Optional<UserReputation> findByUserIdAndChatId(Integer userId, Long chatId) {
+        return userReputationRepository.findByUserIdAndChatId(userId, chatId);
     }
 
     @Override

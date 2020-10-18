@@ -31,10 +31,11 @@ public class ReputationRest {
     }
 
     private void checkIfUserReputationIsExist(Integer userId, Long chatId) {
-        if (userReputationService.findByUserIdAndChatId(userId, chatId) == null) {
-            String message = String.format("User with such id %s and chat id %s does not exist", userId, chatId);
-            LOGGER.warn(message);
-            throw new BadRequestException(message);
-        }
+        userReputationService.findByUserIdAndChatId(userId, chatId)
+                .orElseThrow(() -> {
+                    String message = String.format("User with such id %s and chat id %s does not exist", userId, chatId);
+                    LOGGER.warn(message);
+                    throw new BadRequestException(message);
+                });
     }
 }

@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
@@ -32,7 +33,7 @@ public interface IUserReputationService {
      * @param chatId the chat id
      * @return user reputation
      */
-    UserReputation findByUserIdAndChatId(Integer userId, Long chatId);
+    Optional<UserReputation> findByUserIdAndChatId(Integer userId, Long chatId);
 
     /**
      * Manage user reputation.

@@ -5,6 +5,7 @@ import com.telegram.rtb.command.Command;
 import com.telegram.rtb.model.domain.UserReputation;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import com.telegram.rtb.service.reputation.IUserReputationService;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -31,8 +32,9 @@ public class ShowMyReputationCommand extends AbstractCommand implements Command 
     @Override
     public BotApiMethodResponse execute(Message message) {
         User from = message.getFrom();
-        UserReputation userReputation = userReputationService.findByUserIdAndChatId(from.getId(), message.getChatId());
-        int actualReputation = userReputation == null ? 0 : userReputation.getReputationValue();
+        int actualReputation = userReputationService.findByUserIdAndChatId(from.getId(), message.getChatId())
+                .map(UserReputation::getReputationValue)
+                .orElse(NumberUtils.INTEGER_ZERO);
         String responseText = String.format("*%s*, твоя репутация %s", getFullName(from), "*" + prepareReputationValue(actualReputation) + "*");
 
         return createBotApiMethodResponse(Collections.singletonList(createResponseSendMessage(message, responseText)), SHOW_MY_REPUTATION);
