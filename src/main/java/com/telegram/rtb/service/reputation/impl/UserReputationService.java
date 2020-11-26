@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 
-import javax.persistence.EntityManager;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -48,8 +47,6 @@ public class UserReputationService implements IUserReputationService {
     private IUserService userService;
     @Autowired
     private IChatService chatService;
-    @Autowired
-    private EntityManager entityManager;
 
     @Value("${telegram.default.delay}")
     private int defaultDelay;
