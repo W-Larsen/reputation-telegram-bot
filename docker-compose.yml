@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: ${JDBC_DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${JDBC_DATABASE_PASSWORD}
+      POSTGRES_DB: ${JDBC_DATABASE_NAME}
+    ports:
+      - 5432:5432
