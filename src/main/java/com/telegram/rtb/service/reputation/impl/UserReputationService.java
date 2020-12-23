@@ -75,7 +75,7 @@ public class UserReputationService implements IUserReputationService {
             return StringUtils.EMPTY;
         }
 
-        if (!isValidUpdatedTime(fromBy.getId(), reputationRepliedTo)) {
+        if (!isValidUpdatedTime(fromBy, chat, reputationRepliedTo)) {
             return DELAY_MESSAGE_RU;
         }
 
@@ -101,8 +101,8 @@ public class UserReputationService implements IUserReputationService {
         return userReputationRepository.saveAndFlush(createUserReputationClass(user.getId(), chat.getId(), user.getId()));
     }
 
-    private boolean isValidUpdatedTime(Integer fromById, UserReputation repliedTo) {
-        if (repliedTo.getUpdatedFromId().equals(fromById)) {
+    private boolean isValidUpdatedTime(User fromBy, Chat actualChat, UserReputation repliedTo) {
+        if (isTheSameUser(fromBy, repliedTo) && isTheSameChat(actualChat, repliedTo)) {
             LocalDateTime now = LocalDateTime.now();
             LocalDateTime updatedDateTime = repliedTo.getUpdatedDateTime().toInstant()
                     .atZone(ZoneId.systemDefault())
@@ -114,6 +114,14 @@ public class UserReputationService implements IUserReputationService {
             return diff > defaultDelay;
         }
         return true;
+    }
+
+    private boolean isTheSameUser(User fromBy, UserReputation repliedTo) {
+        return (repliedTo.getUpdatedFromId().equals(fromBy.getId()));
+    }
+
+    private boolean isTheSameChat(Chat actualChat, UserReputation repliedTo) {
+        return actualChat.getId().equals(repliedTo.getTelegramChat().getChatId());
     }
 
     private TelegramUser toTelegramUser(User user) {
