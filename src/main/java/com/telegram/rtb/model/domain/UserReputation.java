@@ -1,7 +1,6 @@
 package com.telegram.rtb.model.domain;
 
 import com.telegram.rtb.model.domain.key.UserReputationPk;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,16 +38,16 @@ public class UserReputation {
     @JoinColumn(name = "chat_id", insertable = false, updatable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
+    @Getter
+    @Setter
     private TelegramChat telegramChat;
 
     @ManyToOne
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
+    @Getter
+    @Setter
     private TelegramUser telegramUser;
 
 }
