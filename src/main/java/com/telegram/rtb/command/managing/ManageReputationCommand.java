@@ -13,6 +13,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Queue;
 import java.util.function.Consumer;
 
@@ -37,7 +38,7 @@ public abstract class ManageReputationCommand extends AbstractCommand implements
             if (!repliedTo.getBot() && !isTheSameUser(message.getFrom(), repliedTo)) {
                 List<BotApiMethod<?>> botApiMethodsResponse = new LinkedList<>();
 
-                if (!CollectionUtils.isEmpty(messageQueue)) {
+                if (!CollectionUtils.isEmpty(messageQueue) && isTheSameChat(message.getChatId())) {
                     Message previousMessage = messageQueue.remove();
                     botApiMethodsResponse.add(createDefaultDeleteMessageResponse(message.getChatId(), previousMessage.getMessageId()));
                 }
@@ -52,6 +53,14 @@ public abstract class ManageReputationCommand extends AbstractCommand implements
 
     private boolean isTheSameUser(User messageFrom, User repliedTo) {
         return messageFrom.getId().equals(repliedTo.getId());
+    }
+
+    private boolean isTheSameChat(Long actualChatId) {
+        Message message = messageQueue.peek();
+        if (Objects.isNull(message)) {
+            return false;
+        }
+        return message.getChatId().equals(actualChatId);
     }
 
 }
