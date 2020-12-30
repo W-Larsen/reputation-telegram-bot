@@ -8,7 +8,7 @@ The main implementation - [Dawg Reputation Bot](https://t.me/dawgReputationBot).
 
 ## Project management
 
-This project uses [Zube](https://github.com/marketplace/zube) extension for GitHub for tracking new features and improvements
+This project uses [Zube extenstion](https://zube.io/w-larsen/reputation-telegram-bot/w/main/kanban) for GitHub for tracking new features and improvements
 and simple [GitHub board](https://github.com/W-Larsen/reputation-telegram-bot/projects/1) for tracking bugs.
 
 ## How it works
