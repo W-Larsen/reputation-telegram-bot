@@ -6,6 +6,11 @@ App version: 1.0
 
 The main implementation - [Dawg Reputation Bot](https://t.me/dawgReputationBot).
 
+## Project management
+
+This project uses [Zube](https://github.com/marketplace/zube) extension for GitHub for tracking new features and improvements
+and simple [GitHub board](https://github.com/W-Larsen/reputation-telegram-bot/projects/1) for tracking bugs.
+
 ## How it works
 
 **The main goal:** every time when one of the users replies to the user's message with a key word (e.g. "+" or "-"), then that user's reputation goes up or down.
