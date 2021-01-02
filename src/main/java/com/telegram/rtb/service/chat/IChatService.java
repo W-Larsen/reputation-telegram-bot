@@ -15,4 +15,12 @@ public interface IChatService {
      * @param telegramChat the telegram chat
      */
     void addTelegramChat(TelegramChat telegramChat);
+
+    /**
+     * Get telegram chat by chat id.
+     *
+     * @param chatId the chat id
+     * @return telegram chat
+     */
+    TelegramChat getTelegramChatByChatId(Long chatId);
 }

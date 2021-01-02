@@ -1,4 +1,4 @@
-package com.telegram.rtb.rest;
+package com.telegram.rtb.controller;
 
 import com.telegram.rtb.model.rest.ping.PingResponse;
 import com.telegram.rtb.service.ping.impl.PingService;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Valentyn Korniienko
  */
 @RestController
-public class PingRest {
+public class PingController {
 
     @Autowired
     private PingService pingService;

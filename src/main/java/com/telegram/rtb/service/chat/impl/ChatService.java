@@ -23,4 +23,9 @@ public class ChatService implements IChatService {
             chatRepository.save(telegramChat);
         }
     }
+
+    @Override
+    public TelegramChat getTelegramChatByChatId(Long chatId) {
+        return chatRepository.findChatById(chatId);
+    }
 }

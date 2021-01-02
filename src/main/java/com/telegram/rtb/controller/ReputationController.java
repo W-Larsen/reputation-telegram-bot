@@ -1,11 +1,10 @@
-package com.telegram.rtb.rest;
+package com.telegram.rtb.controller;
 
 import com.telegram.rtb.exception.BadRequestException;
 import com.telegram.rtb.model.rest.reputation.ReputationRequest;
 import com.telegram.rtb.model.rest.reputation.ReputationResponse;
 import com.telegram.rtb.service.reputation.IUserReputationService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,9 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Valentyn Korniienko
  */
 @RestController
-public class ReputationRest {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ReputationRest.class);
+@Log4j2
+public class ReputationController {
 
     @Autowired
     private IUserReputationService userReputationService;
@@ -34,7 +32,7 @@ public class ReputationRest {
         userReputationService.findByUserIdAndChatId(userId, chatId)
                 .orElseThrow(() -> {
                     String message = String.format("User with such id %s and chat id %s does not exist", userId, chatId);
-                    LOGGER.warn(message);
+                    log.warn(message);
                     throw new BadRequestException(message);
                 });
     }
