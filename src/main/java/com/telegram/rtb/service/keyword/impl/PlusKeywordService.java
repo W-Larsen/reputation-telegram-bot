@@ -3,6 +3,7 @@ package com.telegram.rtb.service.keyword.impl;
 import com.telegram.rtb.exception.NotFoundException;
 import com.telegram.rtb.model.domain.keyword.PlusKeyword;
 import com.telegram.rtb.model.keyword.Keywords;
+import com.telegram.rtb.model.keyword.PlusKeywords;
 import com.telegram.rtb.repository.keyword.PlusKeywordRepository;
 import com.telegram.rtb.service.chat.IChatService;
 import com.telegram.rtb.service.keyword.IKeywordService;
@@ -33,7 +34,7 @@ public class PlusKeywordService implements IKeywordService {
     private IChatService chatService;
 
     @Override
-    public Keywords getKeywordsByChatId(Long chatId) {
+    public PlusKeywords getKeywordsByChatId(Long chatId) {
         checkChatId(chatId);
         List<PlusKeyword> keywords = keywordRepository.findAllByKeywordPkChatId(chatId)
                 .orElse(Collections.emptyList());

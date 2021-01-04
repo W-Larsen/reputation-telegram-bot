@@ -3,8 +3,7 @@ package com.telegram.rtb.bot;
 import com.telegram.rtb.bot.sender.MessageSender;
 import com.telegram.rtb.command.handler.CommandHandler;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -24,9 +23,8 @@ import java.util.function.Function;
  * @author Valentyn Korniienko
  */
 @Component
+@Log4j2
 public class TelegramReputationBot extends TelegramLongPollingBot {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TelegramReputationBot.class);
 
     @Value("${telegram.reputation.bot.token}")
     private String botToken;
@@ -58,7 +56,7 @@ public class TelegramReputationBot extends TelegramLongPollingBot {
             try {
                 return (T) execute(botApiMethod);
             } catch (TelegramApiException e) {
-                LOGGER.error("Failed to send message due to error: {}", e.getMessage());
+                log.error("Failed to send message due to error: {}", e.getMessage());
                 throw new RuntimeException(e);
             }
         };

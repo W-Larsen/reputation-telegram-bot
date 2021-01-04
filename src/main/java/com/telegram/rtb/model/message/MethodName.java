@@ -13,5 +13,9 @@ public enum MethodName {
 
     HEALTH_CHECK,
 
+    PLUS_KEYWORD,
+
+    MINUS_KEYWORD,
+
     NO_METHOD
 }
