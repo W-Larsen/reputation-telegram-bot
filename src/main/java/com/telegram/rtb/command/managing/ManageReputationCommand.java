@@ -5,6 +5,7 @@ import com.telegram.rtb.command.Command;
 import com.telegram.rtb.model.domain.UserReputation;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import com.telegram.rtb.service.reputation.IUserReputationService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -24,6 +25,7 @@ import static com.telegram.rtb.model.message.MethodName.MANAGE_REPUTATION;
  *
  * @author Valentyn Korniienko
  */
+@Log4j2
 public abstract class ManageReputationCommand extends AbstractCommand implements Command {
 
     @Autowired
@@ -39,7 +41,9 @@ public abstract class ManageReputationCommand extends AbstractCommand implements
                 List<BotApiMethod<?>> botApiMethodsResponse = new LinkedList<>();
 
                 if (!CollectionUtils.isEmpty(messageQueue) && isTheSameChat(message.getChatId())) {
+                    log.info("The chat {} is the same. Continue deleting...", message.getChatId());
                     Message previousMessage = messageQueue.remove();
+                    log.info("Deleting message: {}", previousMessage.getMessageId());
                     botApiMethodsResponse.add(createDefaultDeleteMessageResponse(message.getChatId(), previousMessage.getMessageId()));
                 }
 
@@ -58,8 +62,10 @@ public abstract class ManageReputationCommand extends AbstractCommand implements
     private boolean isTheSameChat(Long actualChatId) {
         Message message = messageQueue.peek();
         if (Objects.isNull(message)) {
+            log.info("Wrong chat {}", actualChatId);
             return false;
         }
+        log.info("Chat id {} from previous message {} ", message.getChatId(), message.getText());
         return message.getChatId().equals(actualChatId);
     }
 

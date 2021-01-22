@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-import java.util.ArrayDeque;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 /**
  * Database configuration.
@@ -39,7 +39,7 @@ public class ApplicationConfiguration {
      */
     @Bean
     public Queue<Message> messageQueue() {
-        return new ArrayDeque<>();
+        return new ConcurrentLinkedDeque<>();
     }
 
 }
