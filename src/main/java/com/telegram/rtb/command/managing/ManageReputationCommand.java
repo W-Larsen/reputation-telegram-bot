@@ -14,7 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 import java.util.Queue;
 import java.util.function.Consumer;
 
@@ -29,7 +29,7 @@ import static com.telegram.rtb.model.message.MethodName.MANAGE_REPUTATION;
 public abstract class ManageReputationCommand extends AbstractCommand implements Command {
 
     @Autowired
-    private Queue<Message> messageQueue;
+    private Map<Long, Queue<Message>> messageCache;
 
     @Autowired
     private IUserReputationService userReputationService;
@@ -40,11 +40,14 @@ public abstract class ManageReputationCommand extends AbstractCommand implements
             if (!repliedTo.getBot() && !isTheSameUser(message.getFrom(), repliedTo)) {
                 List<BotApiMethod<?>> botApiMethodsResponse = new LinkedList<>();
 
-                if (!CollectionUtils.isEmpty(messageQueue) && isTheSameChat(message.getChatId())) {
-                    log.info("The chat {} is the same. Continue deleting...", message.getChatId());
-                    Message previousMessage = messageQueue.remove();
-                    log.info("Deleting message: {}", previousMessage.getMessageId());
-                    botApiMethodsResponse.add(createDefaultDeleteMessageResponse(message.getChatId(), previousMessage.getMessageId()));
+                if (!CollectionUtils.isEmpty(messageCache)) {
+                    Queue<Message> messages = messageCache.get(message.getChatId());
+                    if (!CollectionUtils.isEmpty(messages)) {
+                        log.info("Queue of messages are not empty, size: {}", messages.size());
+                        Message previousMessage = messages.remove();
+                        log.info("Deleting message: {}", previousMessage.getMessageId());
+                        botApiMethodsResponse.add(createDefaultDeleteMessageResponse(message.getChatId(), previousMessage.getMessageId()));
+                    }
                 }
 
                 String responseText = userReputationService.manageUserReputation(message.getFrom(), repliedTo, message.getChat(), action, actionMessage);
@@ -57,16 +60,6 @@ public abstract class ManageReputationCommand extends AbstractCommand implements
 
     private boolean isTheSameUser(User messageFrom, User repliedTo) {
         return messageFrom.getId().equals(repliedTo.getId());
-    }
-
-    private boolean isTheSameChat(Long actualChatId) {
-        Message message = messageQueue.peek();
-        if (Objects.isNull(message)) {
-            log.info("Wrong chat {}", actualChatId);
-            return false;
-        }
-        log.info("Chat id {} from previous message {} ", message.getChatId(), message.getText());
-        return message.getChatId().equals(actualChatId);
     }
 
 }
