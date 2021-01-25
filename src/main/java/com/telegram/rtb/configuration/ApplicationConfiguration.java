@@ -8,7 +8,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Queue;
 
 /**
@@ -33,13 +34,13 @@ public class ApplicationConfiguration {
     }
 
     /**
-     * Message queue.
+     * Message cache by chat id.
      *
-     * @return message queue
+     * @return cache with messages by chat id
      */
     @Bean
-    public Queue<Message> messageQueue() {
-        return new ArrayDeque<>();
+    public Map<Long, Queue<Message>> messageCache() {
+        return new HashMap<>();
     }
 
 }
