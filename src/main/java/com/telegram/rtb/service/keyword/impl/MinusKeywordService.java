@@ -10,6 +10,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -59,6 +60,7 @@ public class MinusKeywordService implements IKeywordService {
     }
 
     @Override
+    @Transactional
     public void deleteAllKeywords(Long chatId) {
         checkChatId(chatId);
 
@@ -66,6 +68,7 @@ public class MinusKeywordService implements IKeywordService {
     }
 
     @Override
+    @Transactional
     public void deleteKeyword(String keyword, Long chatId) {
         checkChatId(chatId);
 

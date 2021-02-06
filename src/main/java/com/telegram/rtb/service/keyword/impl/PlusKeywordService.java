@@ -1,6 +1,7 @@
 package com.telegram.rtb.service.keyword.impl;
 
 import com.telegram.rtb.exception.NotFoundException;
+import com.telegram.rtb.model.domain.TelegramChat;
 import com.telegram.rtb.model.domain.keyword.PlusKeyword;
 import com.telegram.rtb.model.keyword.Keywords;
 import com.telegram.rtb.model.keyword.PlusKeywords;
@@ -11,6 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +37,6 @@ public class PlusKeywordService implements IKeywordService {
 
     @Override
     public PlusKeywords getKeywordsByChatId(Long chatId) {
-        checkChatId(chatId);
         List<PlusKeyword> keywords = keywordRepository.findAllByKeywordPkChatId(chatId)
                 .orElse(Collections.emptyList());
         return transformPlusKeywords(keywords, chatId);
@@ -59,6 +60,7 @@ public class PlusKeywordService implements IKeywordService {
     }
 
     @Override
+    @Transactional
     public void deleteAllKeywords(Long chatId) {
         checkChatId(chatId);
 
@@ -66,6 +68,7 @@ public class PlusKeywordService implements IKeywordService {
     }
 
     @Override
+    @Transactional
     public void deleteKeyword(String keyword, Long chatId) {
         checkChatId(chatId);
 

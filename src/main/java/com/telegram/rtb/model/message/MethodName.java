@@ -13,9 +13,13 @@ public enum MethodName {
 
     HEALTH_CHECK,
 
-    PLUS_KEYWORD,
+    ADD_KEYWORDS,
 
-    MINUS_KEYWORD,
+    DELETE_KEYWORD,
+
+    DELETE_KEYWORDS,
+
+    SHOW_KEYWORDS,
 
     NO_METHOD
 }

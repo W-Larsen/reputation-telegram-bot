@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-@Component("/!add_minus_keywords")
-public class MinusKeywordCommand extends AbstractKeywordCommand {
+@Component("!del_minus_keyword")
+public class DeleteMinusKeywordCommand extends AbstractKeywordCommand {
 
     @Autowired
     @Qualifier("minusKeywordService")
@@ -16,6 +16,6 @@ public class MinusKeywordCommand extends AbstractKeywordCommand {
 
     @Override
     public BotApiMethodResponse execute(Message message) {
-        return executeAddKeywords(message, (keyword, chatId) -> keywordService.saveKeywords(keyword, chatId));
+        return executeDeleteKeyword(message, (keyword, chatId) -> keywordService.deleteKeyword(keyword, chatId));
     }
 }
