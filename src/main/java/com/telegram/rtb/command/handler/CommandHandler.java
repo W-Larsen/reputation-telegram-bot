@@ -46,6 +46,9 @@ public class CommandHandler {
     private Map<String, List<String>> relatedMessages;
     private BotApiMethodResponse defaultBotApiMethodResponse;
 
+    /**
+     * Init method.
+     */
     @PostConstruct
     public void init() {
         initDefaultBotApiMethodResponse();

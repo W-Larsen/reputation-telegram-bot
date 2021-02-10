@@ -134,7 +134,7 @@ public class UserReputationService implements IUserReputationService {
     }
 
     private String getUserName(User user) {
-        return StringUtils.isEmpty(user.getUserName()) ? user.getFirstName() : user.getFirstName();
+        return StringUtils.isEmpty(user.getUserName()) ? user.getFirstName() : user.getUserName();
     }
 
     private TelegramChat toTelegramChat(Chat chat) {
