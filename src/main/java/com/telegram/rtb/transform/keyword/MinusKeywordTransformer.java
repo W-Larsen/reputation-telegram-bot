@@ -14,6 +14,13 @@ import java.util.stream.Collectors;
  */
 public class MinusKeywordTransformer {
 
+    /**
+     * Transform minus keywords.
+     *
+     * @param keywords the keywords.
+     * @param chatId   the chat id
+     * @return minus keywords
+     */
     public static MinusKeywords transformMinusKeywords(List<MinusKeyword> keywords, Long chatId) {
         return MinusKeywords.builder()
                 .chatId(chatId)
@@ -21,6 +28,13 @@ public class MinusKeywordTransformer {
                 .build();
     }
 
+    /**
+     * Create plus keywords.
+     *
+     * @param keyword the keyword
+     * @param chatId  the chat id
+     * @return minus keyword
+     */
     public static MinusKeyword createPlusKeyword(String keyword, Long chatId) {
         return MinusKeyword.builder()
                 .keywordPk(KeywordPk.builder().keywordId(UUID.randomUUID().toString()).chatId(chatId).build())
