@@ -24,7 +24,7 @@ public class DeleteMessageExecutor implements MessageExecutor {
     }
 
     @Override
-    public void executeMessage(BotApiMethod<?> botApiMethod, MethodName methodName, Function<BotApiMethod<?>, Message> executorFunction) {
+    public <T> void executeMessage(BotApiMethod<?> botApiMethod, MethodName methodName, Function<BotApiMethod<?>, T> executorFunction) {
         DeleteMessage deleteMessageResponse = (DeleteMessage) botApiMethod;
         if (deleteMessageResponse.getMessageId() != null) {
             executorFunction.apply(deleteMessageResponse);

@@ -1,5 +1,6 @@
-package com.telegram.rtb.command.keyword;
+package com.telegram.rtb.command.keyword.delete;
 
+import com.telegram.rtb.command.keyword.AbstractKeywordCommand;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import com.telegram.rtb.service.keyword.IKeywordService;
 import org.springframework.beans.factory.annotation.Autowired;

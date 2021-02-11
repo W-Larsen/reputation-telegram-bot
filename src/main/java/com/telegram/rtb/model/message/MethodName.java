@@ -21,5 +21,7 @@ public enum MethodName {
 
     SHOW_KEYWORDS,
 
+    GET_CHAT_ADMINISTRATORS,
+
     NO_METHOD
 }

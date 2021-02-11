@@ -34,10 +34,10 @@ public class SendMessageExecutor implements MessageExecutor {
     }
 
     @Override
-    public void executeMessage(BotApiMethod<?> botApiMethod, MethodName methodName, Function<BotApiMethod<?>, Message> executorFunction) {
+    public <T> void executeMessage(BotApiMethod<?> botApiMethod, MethodName methodName, Function<BotApiMethod<?>, T> executorFunction) {
         SendMessage sendMessageResponse = (SendMessage) botApiMethod;
         if (StringUtils.isNotEmpty(sendMessageResponse.getText())) {
-            Message message = executorFunction.apply(sendMessageResponse);
+            Message message = (Message) executorFunction.apply(sendMessageResponse);
             if (methodName.equals(MANAGE_REPUTATION)) {
                 saveMessageToCache(message);
             }

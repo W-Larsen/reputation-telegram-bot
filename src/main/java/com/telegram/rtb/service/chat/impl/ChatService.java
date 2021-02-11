@@ -3,6 +3,7 @@ package com.telegram.rtb.service.chat.impl;
 import com.telegram.rtb.model.domain.TelegramChat;
 import com.telegram.rtb.repository.ChatRepository;
 import com.telegram.rtb.service.chat.IChatService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
  * @author Valentyn Korniienko
  */
 @Service
+@Log4j2
 public class ChatService implements IChatService {
 
     @Autowired

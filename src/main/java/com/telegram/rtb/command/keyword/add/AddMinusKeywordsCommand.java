@@ -1,17 +1,19 @@
-package com.telegram.rtb.command.keyword;
+package com.telegram.rtb.command.keyword.add;
 
+import com.telegram.rtb.command.keyword.AbstractKeywordCommand;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import com.telegram.rtb.service.keyword.IKeywordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.ChatPermissions;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-@Component("!add_plus_keywords")
-public class AddPlusKeywordsCommand extends AbstractKeywordCommand {
+@Component("!add_minus_keywords")
+public class AddMinusKeywordsCommand extends AbstractKeywordCommand {
 
     @Autowired
-    @Qualifier("plusKeywordService")
+    @Qualifier("minusKeywordService")
     private IKeywordService keywordService;
 
     @Override

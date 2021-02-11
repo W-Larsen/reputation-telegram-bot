@@ -1,5 +1,6 @@
-package com.telegram.rtb.command.keyword;
+package com.telegram.rtb.command.keyword.add;
 
+import com.telegram.rtb.command.keyword.AbstractKeywordCommand;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import com.telegram.rtb.service.keyword.IKeywordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-@Component("!del_plus_keyword")
-public class DeletePlusKeywordCommand extends AbstractKeywordCommand {
+@Component("!add_plus_keywords")
+public class AddPlusKeywordsCommand extends AbstractKeywordCommand {
 
     @Autowired
     @Qualifier("plusKeywordService")
@@ -16,6 +17,6 @@ public class DeletePlusKeywordCommand extends AbstractKeywordCommand {
 
     @Override
     public BotApiMethodResponse execute(Message message) {
-        return executeDeleteKeyword(message, (keyword, chatId) -> keywordService.deleteKeyword(keyword, chatId));
+        return executeAddKeywords(message, (keyword, chatId) -> keywordService.saveKeywords(keyword, chatId));
     }
 }

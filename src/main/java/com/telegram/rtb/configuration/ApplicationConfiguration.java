@@ -1,5 +1,6 @@
 package com.telegram.rtb.configuration;
 
+import com.telegram.rtb.model.message.ChatAdministrators;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -43,4 +44,17 @@ public class ApplicationConfiguration {
         return new HashMap<>();
     }
 
+
+    /**
+     * ChatAdministrators entity with map of chat administrators by chat id.
+     * By default, it initialized empty. Will be populated at runtime.
+     *
+     * @return chat administrators
+     */
+    @Bean
+    public ChatAdministrators chatAdministratorsByChatId() {
+        return ChatAdministrators.builder()
+                .chatAdministratorsByChatId(new HashMap<>())
+                .build();
+    }
 }
