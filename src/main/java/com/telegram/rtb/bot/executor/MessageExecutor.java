@@ -23,8 +23,9 @@ public interface MessageExecutor {
     /**
      * Execute method.
      *
-     * @param botApiMethod the bot api method
-     * @param methodName   the method name enum
+     * @param botApiMethod     the bot api method
+     * @param methodName       the method name enum
+     * @param executorFunction the executor function
      */
     void executeMessage(BotApiMethod<?> botApiMethod, MethodName methodName, Function<BotApiMethod<?>, Message> executorFunction);
 
