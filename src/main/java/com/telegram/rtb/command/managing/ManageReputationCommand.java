@@ -2,6 +2,7 @@ package com.telegram.rtb.command.managing;
 
 import com.telegram.rtb.command.AbstractCommand;
 import com.telegram.rtb.command.Command;
+import com.telegram.rtb.model.cache.MessageCache;
 import com.telegram.rtb.model.domain.UserReputation;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import com.telegram.rtb.service.reputation.IUserReputationService;
@@ -14,7 +15,6 @@ import org.telegram.telegrambots.meta.api.objects.User;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 import java.util.function.Consumer;
 
@@ -29,7 +29,7 @@ import static com.telegram.rtb.model.message.MethodName.MANAGE_REPUTATION;
 public abstract class ManageReputationCommand extends AbstractCommand implements Command {
 
     @Autowired
-    private Map<Long, Queue<Message>> messageCache;
+    private MessageCache messageCache;
 
     @Autowired
     private IUserReputationService userReputationService;
@@ -40,7 +40,7 @@ public abstract class ManageReputationCommand extends AbstractCommand implements
             if (!repliedTo.getBot() && !isTheSameUser(message.getFrom(), repliedTo)) {
                 List<BotApiMethod<?>> botApiMethodsResponse = new LinkedList<>();
 
-                if (!CollectionUtils.isEmpty(messageCache)) {
+                if (!messageCache.isEmpty()) {
                     Queue<Message> messages = messageCache.get(message.getChatId());
                     if (!CollectionUtils.isEmpty(messages)) {
                         log.info("Queue of messages are not empty, size: {}", messages.size());

@@ -1,5 +1,6 @@
 package com.telegram.rtb.configuration;
 
+import com.telegram.rtb.model.cache.MessageCache;
 import com.telegram.rtb.model.message.ChatAdministrators;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -7,11 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
-import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
 
 /**
  * Database configuration.
@@ -40,8 +38,10 @@ public class ApplicationConfiguration {
      * @return cache with messages by chat id
      */
     @Bean
-    public Map<Long, Queue<Message>> messageCache() {
-        return new HashMap<>();
+    public MessageCache messageCache() {
+        return MessageCache.builder()
+                .messageCache(new HashMap<>())
+                .build();
     }
 
 

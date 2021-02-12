@@ -1,5 +1,6 @@
 package com.telegram.rtb.bot.executor;
 
+import com.telegram.rtb.model.cache.MessageCache;
 import com.telegram.rtb.model.message.MethodName;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +27,7 @@ import static com.telegram.rtb.model.message.MethodName.MANAGE_REPUTATION;
 public class SendMessageExecutor implements MessageExecutor {
 
     @Autowired
-    private Map<Long, Queue<Message>> messageCache;
+    private MessageCache messageCache;
 
     @Override
     public String getMethodName() {
