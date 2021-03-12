@@ -1,9 +1,9 @@
 package com.telegram.rtb.bot.executor;
 
+import com.telegram.rtb.model.cache.MessageCache;
 import com.telegram.rtb.model.message.MethodName;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -23,12 +23,11 @@ import static com.telegram.rtb.model.message.MethodName.MANAGE_REPUTATION;
  * @author Valentyn Korniienko
  */
 @Component
+@Log4j2
 public class SendMessageExecutor implements MessageExecutor {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SendMessageExecutor.class);
-
     @Autowired
-    private Map<Long, Queue<Message>> messageCache;
+    private MessageCache messageCache;
 
     @Override
     public String getMethodName() {
@@ -36,14 +35,14 @@ public class SendMessageExecutor implements MessageExecutor {
     }
 
     @Override
-    public void executeMessage(BotApiMethod<?> botApiMethod, MethodName methodName, Function<BotApiMethod<?>, Message> executorFunction) {
+    public <T> void executeMessage(BotApiMethod<?> botApiMethod, MethodName methodName, Function<BotApiMethod<?>, T> executorFunction) {
         SendMessage sendMessageResponse = (SendMessage) botApiMethod;
         if (StringUtils.isNotEmpty(sendMessageResponse.getText())) {
-            Message message = executorFunction.apply(sendMessageResponse);
+            Message message = (Message) executorFunction.apply(sendMessageResponse);
             if (methodName.equals(MANAGE_REPUTATION)) {
                 saveMessageToCache(message);
             }
-            LOGGER.info("Sent message \"{}\" to {} chat ", sendMessageResponse.getText(), sendMessageResponse.getChatId());
+            log.info("Sent message \"{}\" to {} chat ", sendMessageResponse.getText(), sendMessageResponse.getChatId());
         }
     }
 

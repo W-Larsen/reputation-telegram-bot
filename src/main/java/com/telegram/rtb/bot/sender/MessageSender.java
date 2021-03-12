@@ -36,8 +36,9 @@ public class MessageSender {
      * @param botApiMethod     the generic bot api method
      * @param methodName       the method name enum
      * @param executorFunction the executor function
+     * @param <T>              the response type from execution
      */
-    public void sendMessage(BotApiMethod<?> botApiMethod, MethodName methodName, Function<BotApiMethod<?>, Message> executorFunction) {
+    public <T> void sendMessage(BotApiMethod<?> botApiMethod, MethodName methodName, Function<BotApiMethod<?>, T> executorFunction) {
         botApiMethodsExecute.get(botApiMethod.getMethod()).executeMessage(botApiMethod, methodName, executorFunction);
     }
 

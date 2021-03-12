@@ -13,5 +13,15 @@ public enum MethodName {
 
     HEALTH_CHECK,
 
+    ADD_KEYWORDS,
+
+    DELETE_KEYWORD,
+
+    DELETE_KEYWORDS,
+
+    SHOW_KEYWORDS,
+
+    GET_CHAT_ADMINISTRATORS,
+
     NO_METHOD
 }

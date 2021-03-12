@@ -2,7 +2,7 @@ package com.telegram.rtb.service.keyword.impl;
 
 import com.telegram.rtb.exception.NotFoundException;
 import com.telegram.rtb.model.domain.keyword.MinusKeyword;
-import com.telegram.rtb.model.keyword.Keywords;
+import com.telegram.rtb.model.keyword.MinusKeywords;
 import com.telegram.rtb.repository.keyword.MinusKeywordRepository;
 import com.telegram.rtb.service.chat.IChatService;
 import com.telegram.rtb.service.keyword.IKeywordService;
@@ -10,6 +10,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -33,7 +34,7 @@ public class MinusKeywordService implements IKeywordService {
     private IChatService chatService;
 
     @Override
-    public Keywords getKeywordsByChatId(Long chatId) {
+    public MinusKeywords getKeywordsByChatId(Long chatId) {
         checkChatId(chatId);
 
         List<MinusKeyword> keywords = keywordRepository.findAllByKeywordPkChatId(chatId)
@@ -59,6 +60,7 @@ public class MinusKeywordService implements IKeywordService {
     }
 
     @Override
+    @Transactional
     public void deleteAllKeywords(Long chatId) {
         checkChatId(chatId);
 
@@ -66,6 +68,7 @@ public class MinusKeywordService implements IKeywordService {
     }
 
     @Override
+    @Transactional
     public void deleteKeyword(String keyword, Long chatId) {
         checkChatId(chatId);
 

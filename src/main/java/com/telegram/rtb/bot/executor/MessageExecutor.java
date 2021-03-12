@@ -26,8 +26,9 @@ public interface MessageExecutor {
      * @param botApiMethod     the bot api method
      * @param methodName       the method name enum
      * @param executorFunction the executor function
+     * @param <T>              the response type from execution
      */
-    void executeMessage(BotApiMethod<?> botApiMethod, MethodName methodName, Function<BotApiMethod<?>, Message> executorFunction);
+    <T> void executeMessage(BotApiMethod<?> botApiMethod, MethodName methodName, Function<BotApiMethod<?>, T> executorFunction);
 
     /**
      * This method will be automatically executed in each implementation.
