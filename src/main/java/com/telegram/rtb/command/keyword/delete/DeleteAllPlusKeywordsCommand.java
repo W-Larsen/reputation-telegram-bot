@@ -1,6 +1,7 @@
 package com.telegram.rtb.command.keyword.delete;
 
 import com.telegram.rtb.command.keyword.AbstractKeywordCommand;
+import com.telegram.rtb.configuration.FeatureConfiguration;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import com.telegram.rtb.service.keyword.IKeywordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,14 @@ public class DeleteAllPlusKeywordsCommand extends AbstractKeywordCommand {
     @Qualifier("plusKeywordService")
     private IKeywordService keywordService;
 
+    @Autowired
+    private FeatureConfiguration featureConfiguration;
+
     @Override
     public BotApiMethodResponse execute(Message message) {
-        return executeDeleteKeywords(message, (chatId) -> keywordService.deleteAllKeywords(chatId));
+        if (featureConfiguration.isFeatureKeywordsEnabled()) {
+            return executeDeleteKeywords(message, (chatId) -> keywordService.deleteAllKeywords(chatId));
+        }
+        return null;
     }
 }

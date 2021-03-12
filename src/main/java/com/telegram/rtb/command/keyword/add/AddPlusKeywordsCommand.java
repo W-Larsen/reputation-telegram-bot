@@ -1,6 +1,7 @@
 package com.telegram.rtb.command.keyword.add;
 
 import com.telegram.rtb.command.keyword.AbstractKeywordCommand;
+import com.telegram.rtb.configuration.FeatureConfiguration;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import com.telegram.rtb.service.keyword.IKeywordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,14 @@ public class AddPlusKeywordsCommand extends AbstractKeywordCommand {
     @Qualifier("plusKeywordService")
     private IKeywordService keywordService;
 
+    @Autowired
+    private FeatureConfiguration featureConfiguration;
+
     @Override
     public BotApiMethodResponse execute(Message message) {
-        return executeAddKeywords(message, (keyword, chatId) -> keywordService.saveKeywords(keyword, chatId));
+        if (featureConfiguration.isFeatureKeywordsEnabled()) {
+            return executeAddKeywords(message, (keyword, chatId) -> keywordService.saveKeywords(keyword, chatId));
+        }
+        return null;
     }
 }
