@@ -17,7 +17,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @NoArgsConstructor
 public class ReputationRequest {
 
-    private Integer userId;
+    private Long userId;
     private Long chatId;
     private Integer reputation;
 

@@ -149,6 +149,16 @@ databaseChangeLog {
                 constraintName: 'keywords_pkey'
         )
     }
+
+    changeSet(id: '13_03_2021_00_change_type_of_user_id', author: 'Valentyn_Korniienko') {
+        comment('Change type of user_id.')
+
+        modifyDataType(tableName: 'users', columnName: 'user_id', newDataType: 'bigint')
+
+        rollback {
+            // all changes automatically rolled-back
+        }
+    }
 }
 
 

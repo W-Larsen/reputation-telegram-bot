@@ -36,11 +36,11 @@ public abstract class AbstractCommand implements Command {
      * @param responseText the response text
      * @return SendMessage response class
      */
-    protected SendMessage createDefaultSendMessageResponse(long chatId, String responseText) {
-        SendMessage response = new SendMessage();
-        response.setChatId(chatId);
-        response.setText(responseText);
-        return response;
+    protected SendMessage createDefaultSendMessageResponse(Long chatId, String responseText) {
+        return SendMessage.builder()
+                .chatId(String.valueOf(chatId))
+                .text(responseText)
+                .build();
     }
 
     /**
@@ -50,11 +50,11 @@ public abstract class AbstractCommand implements Command {
      * @param messageId the message id
      * @return DeleteMessage response class
      */
-    protected DeleteMessage createDefaultDeleteMessageResponse(long chatId, Integer messageId) {
-        DeleteMessage response = new DeleteMessage();
-        response.setChatId(chatId);
-        response.setMessageId(messageId);
-        return response;
+    protected DeleteMessage createDefaultDeleteMessageResponse(Long chatId, Integer messageId) {
+        return DeleteMessage.builder()
+                .chatId(String.valueOf(chatId))
+                .messageId(messageId)
+                .build();
     }
 
 }

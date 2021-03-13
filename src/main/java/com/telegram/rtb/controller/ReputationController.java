@@ -28,7 +28,7 @@ public class ReputationController {
         return userReputationService.updateUserReputation(request);
     }
 
-    private void checkIfUserReputationIsExist(Integer userId, Long chatId) {
+    private void checkIfUserReputationIsExist(Long userId, Long chatId) {
         userReputationService.findByUserIdAndChatId(userId, chatId)
                 .orElseThrow(() -> {
                     String message = String.format("User with such id %s and chat id %s does not exist", userId, chatId);

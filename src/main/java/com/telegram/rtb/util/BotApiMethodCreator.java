@@ -22,7 +22,9 @@ public final class BotApiMethodCreator {
      * @return GetChatAdministrators entity
      */
     public static GetChatAdministrators createGetChatAdministrators(String chatId) {
-        return new GetChatAdministrators().setChatId(chatId);
+        return GetChatAdministrators.builder()
+                .chatId(chatId)
+                .build();
     }
 
     /**
@@ -38,11 +40,11 @@ public final class BotApiMethodCreator {
         return messageResponse;
     }
 
-    private static SendMessage createDefaultSendMessageResponse(long chatId, String responseText) {
-        SendMessage response = new SendMessage();
-        response.setChatId(chatId);
-        response.setText(responseText);
-        return response;
+    private static SendMessage createDefaultSendMessageResponse(Long chatId, String responseText) {
+        return SendMessage.builder()
+                .chatId(String.valueOf(chatId))
+                .text(responseText)
+                .build();
     }
 
 }

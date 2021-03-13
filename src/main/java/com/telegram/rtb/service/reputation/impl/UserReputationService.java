@@ -59,7 +59,7 @@ public class UserReputationService implements IUserReputationService {
     }
 
     @Override
-    public Optional<UserReputation> findByUserIdAndChatId(Integer userId, Long chatId) {
+    public Optional<UserReputation> findByUserIdAndChatId(Long userId, Long chatId) {
         return userReputationRepository.findByUserIdAndChatId(userId, chatId);
     }
 
@@ -167,7 +167,7 @@ public class UserReputationService implements IUserReputationService {
         return createReputationResponse(reputationRequest);
     }
 
-    private UserReputation createUserReputationClass(Integer userId, Long chatId, Integer updatedFromId) {
+    private UserReputation createUserReputationClass(Long userId, Long chatId, Long updatedFromId) {
         return UserReputation.builder()
                 .userReputationPk(UserReputationPk.builder()
                         .userId(userId)

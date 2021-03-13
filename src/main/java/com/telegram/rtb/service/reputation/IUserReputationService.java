@@ -33,7 +33,7 @@ public interface IUserReputationService {
      * @param chatId the chat id
      * @return user reputation
      */
-    Optional<UserReputation> findByUserIdAndChatId(Integer userId, Long chatId);
+    Optional<UserReputation> findByUserIdAndChatId(Long userId, Long chatId);
 
     /**
      * Manage user reputation.
