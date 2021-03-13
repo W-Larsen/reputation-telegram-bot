@@ -44,7 +44,7 @@ public final class MessageUtils {
 
     private static String substringCommandWithoutBotName(String message) {
         int indexOfSpace = message.indexOf(' ');
-        if (indexOfSpace != -1) {
+        if (message.startsWith("!") && indexOfSpace != -1) {
             return message.substring(0, indexOfSpace).trim();
         }
         return null;
