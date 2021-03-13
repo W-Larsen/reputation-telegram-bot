@@ -32,7 +32,7 @@ public class UserReputation {
     private UserReputationPk userReputationPk;
     private Integer reputationValue;
     private ZonedDateTime updatedDateTime;
-    private Integer updatedFromId;
+    private Long updatedFromId;
 
     @ManyToOne
     @JoinColumn(name = "chat_id", insertable = false, updatable = false)

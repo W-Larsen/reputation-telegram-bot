@@ -27,7 +27,7 @@ public interface UserReputationRepository extends JpaRepository<UserReputation, 
     @Query(value = "SELECT rep FROM UserReputation rep " +
             "WHERE rep.userReputationPk.userId = :userId " +
             "AND rep.userReputationPk.chatId = :chatId")
-    Optional<UserReputation> findByUserIdAndChatId(Integer userId, Long chatId);
+    Optional<UserReputation> findByUserIdAndChatId(Long userId, Long chatId);
 
     /**
      * Increase user reputation.
@@ -43,7 +43,7 @@ public interface UserReputationRepository extends JpaRepository<UserReputation, 
             "rep.updatedFromId = :updatedFromId " +
             "WHERE rep.userReputationPk.userId = :userId " +
             "AND rep.userReputationPk.chatId = :chatId")
-    void increaseUserReputation(Integer updatedFromId, Integer userId, Long chatId);
+    void increaseUserReputation(Long updatedFromId, Long userId, Long chatId);
 
     /**
      * Reduce user reputation.
@@ -59,7 +59,7 @@ public interface UserReputationRepository extends JpaRepository<UserReputation, 
             "rep.updatedFromId = :updatedFromId " +
             "WHERE rep.userReputationPk.userId = :userId " +
             "AND rep.userReputationPk.chatId = :chatId")
-    void reduceUserReputation(Integer updatedFromId, Integer userId, Long chatId);
+    void reduceUserReputation(Long updatedFromId, Long userId, Long chatId);
 
     /**
      * Finds all user reputations.
@@ -82,5 +82,5 @@ public interface UserReputationRepository extends JpaRepository<UserReputation, 
             "rep.reputationValue = :reputationValue " +
             "WHERE rep.userReputationPk.userId = :userId " +
             "AND rep.userReputationPk.chatId = :chatId")
-    void updateUserReputation(Integer reputationValue, Integer userId, Long chatId);
+    void updateUserReputation(Integer reputationValue, Long userId, Long chatId);
 }

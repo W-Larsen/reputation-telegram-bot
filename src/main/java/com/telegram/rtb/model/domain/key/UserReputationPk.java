@@ -20,7 +20,7 @@ import java.io.Serializable;
 public class UserReputationPk implements Serializable {
 
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
     @Column(name = "chat_id")
     private Long chatId;
 

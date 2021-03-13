@@ -20,5 +20,5 @@ public interface UserRepository extends JpaRepository<TelegramUser, Long> {
      * @return user
      */
     @Query(value = "SELECT user FROM TelegramUser user WHERE user.userId = :userId")
-    TelegramUser findUserById(Integer userId);
+    TelegramUser findUserById(Long userId);
 }

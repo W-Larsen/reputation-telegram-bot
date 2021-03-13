@@ -22,5 +22,5 @@ public interface IUserService {
      * @param userId the user id
      * @return telegram user
      */
-    TelegramUser findById(Integer userId);
+    TelegramUser findById(Long userId);
 }
