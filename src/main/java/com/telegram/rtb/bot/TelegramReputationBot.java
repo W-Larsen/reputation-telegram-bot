@@ -45,13 +45,14 @@ public class TelegramReputationBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         if (update.hasMessage()) {
             Message message = update.getMessage();
+            populateChatAdministrators(message.getChatId().toString());
+
             BotApiMethodResponse botApiMethodsResponse = commandHandler.handleMessage(message);
             if (!Objects.isNull(botApiMethodsResponse)) {
                 for (BotApiMethod<?> response : botApiMethodsResponse.getBotApiMethods()) {
                     messageSender.sendMessage(response, botApiMethodsResponse.getMethodName(), executeMessage());
                 }
             }
-            populateChatAdministrators(message.getChatId().toString());
         }
     }
 
