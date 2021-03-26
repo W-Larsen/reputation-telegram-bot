@@ -11,4 +11,8 @@ public final class UserRoleUtils {
     public static String getUserRole(Role role) {
         return role.getValue();
     }
+
+    public static String[] getAllRoles() {
+        return Role.getRoleNames();
+    }
 }

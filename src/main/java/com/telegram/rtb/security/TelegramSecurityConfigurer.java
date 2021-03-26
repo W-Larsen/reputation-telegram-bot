@@ -1,9 +1,11 @@
 package com.telegram.rtb.security;
 
-import com.telegram.rtb.security.builder.TelegramSecurity;
+import com.telegram.rtb.security.builder.AbstractSecurityBuilder;
+import org.springframework.context.annotation.Bean;
 
-public abstract class TelegramSecurityConfigurer {
+public interface TelegramSecurityConfigurer {
 
-    protected abstract void configure(TelegramSecurity telegramSecurity);
+    @Bean
+    AbstractSecurityBuilder configure(TelegramSecurity telegramSecurity);
 
 }
