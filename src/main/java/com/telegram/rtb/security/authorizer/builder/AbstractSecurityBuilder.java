@@ -1,4 +1,4 @@
-package com.telegram.rtb.security.builder;
+package com.telegram.rtb.security.authorizer.builder;
 
 import java.util.List;
 import java.util.Map;

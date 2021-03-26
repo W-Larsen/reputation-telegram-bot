@@ -1,8 +1,8 @@
 package com.telegram.rtb.configuration.security;
 
-import com.telegram.rtb.security.TelegramSecurity;
+import com.telegram.rtb.security.authorizer.TelegramSecurityAuthorizer;
 import com.telegram.rtb.security.TelegramSecurityConfigurer;
-import com.telegram.rtb.security.builder.CommandTelegramSecurity;
+import com.telegram.rtb.security.authorizer.builder.CommandTelegramSecurity;
 import org.springframework.context.annotation.Configuration;
 
 import static com.telegram.rtb.model.security.Role.ADMIN;
@@ -14,8 +14,8 @@ import static com.telegram.rtb.util.UserRoleUtils.getUserRole;
 public class CommandTelegramSecurityConfiguration implements TelegramSecurityConfigurer {
 
     @Override
-    public CommandTelegramSecurity configure(TelegramSecurity telegramSecurity) {
-        return telegramSecurity.authorizeCommands()
+    public CommandTelegramSecurity configure(TelegramSecurityAuthorizer telegramSecurityAuthorizer) {
+        return telegramSecurityAuthorizer.authorizeCommands()
                 .byDefault(getAllRoles())
                 .matchers("!add_minus_keywords").hasAnyRoles(getUserRole(CREATOR), getUserRole(ADMIN))
                 .matchers("!add_plus_keywords").hasAnyRoles(getUserRole(CREATOR), getUserRole(ADMIN))

@@ -1,4 +1,4 @@
-package com.telegram.rtb.security.builder;
+package com.telegram.rtb.security.authorizer.builder;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.BeanCreationException;
