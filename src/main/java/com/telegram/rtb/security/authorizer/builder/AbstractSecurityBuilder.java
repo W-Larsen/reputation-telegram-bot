@@ -1,11 +1,16 @@
 package com.telegram.rtb.security.authorizer.builder;
 
-import java.util.List;
-import java.util.Map;
-
+/**
+ * Abstract class for security configuration.
+ *
+ * @author Valentyn Korniienko
+ */
 public abstract class AbstractSecurityBuilder {
 
+    /**
+     * Terminal operation that has each implementation of security type. Collect all data together.
+     *
+     * @return accumulated security entity
+     */
     public abstract AbstractSecurityBuilder apply();
-
-    public abstract Map<String, List<String>> getCommandPermissions();
 }

@@ -1,4 +1,4 @@
-package com.telegram.rtb.configuration;
+package com.telegram.rtb.configuration.feature;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
