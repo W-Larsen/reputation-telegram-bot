@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
 
+/**
+ * Telegram roles.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -19,6 +22,11 @@ public enum Role {
 
     private String value;
 
+    /**
+     * Get role names.
+     *
+     * @return array of role names
+     */
     public static String[] getRoleNames() {
         return Arrays.stream(Role.values()).map(Enum::name).toArray(String[]::new);
     }

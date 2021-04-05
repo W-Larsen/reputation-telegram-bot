@@ -53,7 +53,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
     implementation("org.postgresql:postgresql:${postgresqlVersion}")
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.4.3'
 
     liquibaseRuntime("org.liquibase:liquibase-core:${liquibaseVersion}")
     liquibaseRuntime("org.liquibase:liquibase-groovy-dsl:3.0.0")

@@ -34,15 +34,22 @@ public final class BotApiMethodCreator {
      * @param responseText the response text
      * @return SendMessage entity
      */
-    public static SendMessage createSendMessage(Message message, String responseText) {
-        SendMessage messageResponse = createDefaultSendMessageResponse(message.getChatId(), responseText);
+    public static SendMessage createSendMessageWithMarkDown_V2(Message message, String responseText) {
+        SendMessage messageResponse = createDefaultSendMessage(message, responseText);
         messageResponse.setParseMode(MARKDOWN_V2.getValue());
         return messageResponse;
     }
 
-    private static SendMessage createDefaultSendMessageResponse(Long chatId, String responseText) {
+    /**
+     * Create default SendMessage.
+     *
+     * @param message      the message
+     * @param responseText the response text
+     * @return SendMessage entity
+     */
+    public static SendMessage createDefaultSendMessage(Message message, String responseText) {
         return SendMessage.builder()
-                .chatId(String.valueOf(chatId))
+                .chatId(String.valueOf(message.getChatId()))
                 .text(responseText)
                 .build();
     }
