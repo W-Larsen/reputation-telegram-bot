@@ -7,6 +7,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Chat service implementation.
  *
@@ -29,5 +31,10 @@ public class ChatService implements IChatService {
     @Override
     public TelegramChat getTelegramChatByChatId(Long chatId) {
         return chatRepository.findChatById(chatId);
+    }
+
+    @Override
+    public List<TelegramChat> getAllChats() {
+        return chatRepository.findAll();
     }
 }
