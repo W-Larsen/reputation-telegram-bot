@@ -6,7 +6,6 @@ import com.telegram.rtb.model.message.BotApiMethodResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -20,6 +19,7 @@ import java.util.Objects;
 import java.util.function.Function;
 
 import static com.telegram.rtb.model.message.MethodName.GET_CHAT_ADMINISTRATORS;
+import static com.telegram.rtb.util.BotApiMethodCreator.createGetChatAdministrators;
 
 /**
  * Telegram reputation bot implementation.
@@ -45,6 +45,8 @@ public class TelegramReputationBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         if (update.hasMessage()) {
             Message message = update.getMessage();
+            populateChatAdministrators(message.getChatId().toString());
+
             BotApiMethodResponse botApiMethodsResponse = commandHandler.handleMessage(message);
             if (!Objects.isNull(botApiMethodsResponse)) {
                 for (BotApiMethod<?> response : botApiMethodsResponse.getBotApiMethods()) {
@@ -66,9 +68,9 @@ public class TelegramReputationBot extends TelegramLongPollingBot {
         };
     }
 
-    @Scheduled(cron = "${telegram.populate.administrators.scheduled.cron}")
-    public void populateChatAdministrators() {
-        messageSender.sendMessage(new GetChatAdministrators(), GET_CHAT_ADMINISTRATORS, executeMessage());
+    private void populateChatAdministrators(String chatId) {
+        GetChatAdministrators botApiMethod = createGetChatAdministrators(chatId);
+        messageSender.sendMessage(botApiMethod, GET_CHAT_ADMINISTRATORS, executeMessage());
     }
 
     @Override
