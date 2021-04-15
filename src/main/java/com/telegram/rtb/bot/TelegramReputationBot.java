@@ -20,7 +20,6 @@ import java.util.Objects;
 import java.util.function.Function;
 
 import static com.telegram.rtb.model.message.MethodName.GET_CHAT_ADMINISTRATORS;
-import static com.telegram.rtb.util.BotApiMethodCreator.createGetChatAdministrators;
 
 /**
  * Telegram reputation bot implementation.
@@ -67,9 +66,9 @@ public class TelegramReputationBot extends TelegramLongPollingBot {
         };
     }
 
-    private void populateChatAdministrators(String chatId) {
-        GetChatAdministrators getChatAdministrators = createGetChatAdministrators(chatId);
-        messageSender.sendMessage(getChatAdministrators, GET_CHAT_ADMINISTRATORS, executeMessage());
+    @Scheduled(cron = "${telegram.populate.administrators.scheduled.cron}")
+    public void populateChatAdministrators() {
+        messageSender.sendMessage(new GetChatAdministrators(), GET_CHAT_ADMINISTRATORS, executeMessage());
     }
 
     @Override
