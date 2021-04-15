@@ -12,12 +12,11 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import javax.annotation.PostConstruct;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.telegram.rtb.model.message.MethodName.NO_METHOD;
+import static com.telegram.rtb.util.BotApiMethodResponseCreator.createDefaultBotApiMethodResponse;
 
 /**
  * Command handler.
@@ -30,7 +29,7 @@ import static com.telegram.rtb.model.message.MethodName.NO_METHOD;
 public class CommandHandler {
 
     @Autowired
-    private Map<String, Command> commandMap;
+    private CommandExtractor commandExtractor;
 
     @Value("${plus}")
     private List<String> plusMessages;
@@ -41,14 +40,12 @@ public class CommandHandler {
     private String botUsername;
 
     private Map<String, List<String>> relatedMessages;
-    private BotApiMethodResponse defaultBotApiMethodResponse;
 
     /**
      * Init method.
      */
     @PostConstruct
     public void init() {
-        initDefaultBotApiMethodResponse();
         relatedMessages = new HashMap<>();
         relatedMessages.put("+", plusMessages);
         relatedMessages.put("-", minusMessages);
@@ -66,18 +63,12 @@ public class CommandHandler {
         if (StringUtils.isNotEmpty(commandText)) {
             commandText = MessageUtils.trimMessageText(commandText, botUsername);
             commandText = MessageUtils.getPossibleManagingCommand(commandText, relatedMessages);
-            if (commandMap.containsKey(commandText)) {
-                Command command = commandMap.get(commandText);
+            Command command = commandExtractor.getCommand(commandText, message.getChat(), message.getFrom());
+            if (command != null) {
                 return command.execute(message);
             }
         }
-        return defaultBotApiMethodResponse;
-    }
-
-    private void initDefaultBotApiMethodResponse() {
-        defaultBotApiMethodResponse = new BotApiMethodResponse();
-        defaultBotApiMethodResponse.setBotApiMethods(Collections.emptyList());
-        defaultBotApiMethodResponse.setMethodName(NO_METHOD);
+        return createDefaultBotApiMethodResponse();
     }
 
     private void logInfo(Map<String, List<String>> relatedMessages) {

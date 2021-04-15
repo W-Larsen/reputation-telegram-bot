@@ -21,7 +21,7 @@ import static com.telegram.rtb.model.message.MethodName.ADD_KEYWORDS;
 import static com.telegram.rtb.model.message.MethodName.DELETE_KEYWORD;
 import static com.telegram.rtb.model.message.MethodName.DELETE_KEYWORDS;
 import static com.telegram.rtb.model.message.MethodName.SHOW_KEYWORDS;
-import static com.telegram.rtb.util.BotApiMethodCreator.createSendMessage;
+import static com.telegram.rtb.util.BotApiMethodCreator.createSendMessageWithMarkDown_V2;
 import static com.telegram.rtb.util.MessageUtils.trimCommandText;
 
 /**
@@ -41,7 +41,7 @@ public abstract class AbstractKeywordCommand extends AbstractCommand implements 
         List<String> keywords = getKeywords(trimCommandText(message.getText()));
         checkKeywords(keywords);
         action.accept(keywords, message.getChatId());
-        return createBotApiMethodResponse(List.of(createSendMessage(message, generateAddKeywordsResponseText(keywords))), ADD_KEYWORDS);
+        return createBotApiMethodResponse(List.of(createSendMessageWithMarkDown_V2(message, generateAddKeywordsResponseText(keywords))), ADD_KEYWORDS);
     }
 
     /**
@@ -55,7 +55,7 @@ public abstract class AbstractKeywordCommand extends AbstractCommand implements 
         String keyword = trimCommandText(message.getText());
         checkKeyword(keyword);
         action.accept(keyword, message.getChatId());
-        return createBotApiMethodResponse(List.of(createSendMessage(message, generateDeleteKeywordResponseText(keyword))), DELETE_KEYWORD);
+        return createBotApiMethodResponse(List.of(createSendMessageWithMarkDown_V2(message, generateDeleteKeywordResponseText(keyword))), DELETE_KEYWORD);
     }
 
     /**
@@ -67,7 +67,7 @@ public abstract class AbstractKeywordCommand extends AbstractCommand implements 
      */
     protected BotApiMethodResponse executeDeleteKeywords(Message message, Consumer<Long> action) {
         action.accept(message.getChatId());
-        return createBotApiMethodResponse(List.of(createSendMessage(message, generateDeleteKeywordsResponseText())), DELETE_KEYWORDS);
+        return createBotApiMethodResponse(List.of(createSendMessageWithMarkDown_V2(message, generateDeleteKeywordsResponseText())), DELETE_KEYWORDS);
     }
 
     /**
@@ -79,7 +79,7 @@ public abstract class AbstractKeywordCommand extends AbstractCommand implements 
      */
     protected BotApiMethodResponse executeShowPlusKeywords(Message message, Function<Long, Keywords> action) {
         Keywords keywords = action.apply(message.getChatId());
-        return createBotApiMethodResponse(List.of(createSendMessage(message, generateShowKeywordsResponseText(keywords.getKeywordValues()))), SHOW_KEYWORDS);
+        return createBotApiMethodResponse(List.of(createSendMessageWithMarkDown_V2(message, generateShowKeywordsResponseText(keywords.getKeywordValues()))), SHOW_KEYWORDS);
     }
 
     private List<String> getKeywords(String text) {
@@ -117,6 +117,9 @@ public abstract class AbstractKeywordCommand extends AbstractCommand implements 
     }
 
     private String generateShowKeywordsResponseText(List<String> keywords) {
+        if (CollectionUtils.isEmpty(keywords)) {
+            return "*Ключевых слов нет.*";
+        }
         return "*Ключевые слова*: " + String.join(", ", keywords);
     }
 

@@ -2,6 +2,8 @@ package com.telegram.rtb.service.chat;
 
 import com.telegram.rtb.model.domain.TelegramChat;
 
+import java.util.List;
+
 /**
  * Chat service interface.
  *
@@ -23,4 +25,11 @@ public interface IChatService {
      * @return telegram chat
      */
     TelegramChat getTelegramChatByChatId(Long chatId);
+
+    /**
+     * Get all telegram chats.
+     *
+     * @return list of telegram chats
+     */
+    List<TelegramChat> getAllChats();
 }
