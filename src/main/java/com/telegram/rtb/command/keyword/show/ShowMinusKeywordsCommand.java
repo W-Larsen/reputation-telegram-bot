@@ -1,7 +1,7 @@
 package com.telegram.rtb.command.keyword.show;
 
 import com.telegram.rtb.command.keyword.AbstractKeywordCommand;
-import com.telegram.rtb.configuration.feature.FeatureConfiguration;
+import com.telegram.rtb.configuration.FeatureConfiguration;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import com.telegram.rtb.service.keyword.IKeywordService;
 import org.springframework.beans.factory.annotation.Autowired;
