@@ -1,12 +1,13 @@
 package com.telegram.rtb.command.keyword.add;
 
 import com.telegram.rtb.command.keyword.AbstractKeywordCommand;
-import com.telegram.rtb.configuration.feature.FeatureConfiguration;
+import com.telegram.rtb.configuration.FeatureConfiguration;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import com.telegram.rtb.service.keyword.IKeywordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.ChatPermissions;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 @Component("!add_minus_keywords")
