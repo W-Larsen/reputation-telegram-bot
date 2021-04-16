@@ -1,7 +1,6 @@
 package com.telegram.rtb.bot.executor;
 
 import com.telegram.rtb.exception.TelegramApiBadRequestException;
-import com.telegram.rtb.model.domain.TelegramChat;
 import com.telegram.rtb.model.message.MethodName;
 import com.telegram.rtb.service.chat.IChatAdministratorsService;
 import com.telegram.rtb.service.chat.IChatService;
