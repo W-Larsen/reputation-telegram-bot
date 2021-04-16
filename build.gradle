@@ -47,7 +47,7 @@ dependencies {
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
 
     compileOnly("org.projectlombok:lombok:${lombokVersion}")
-    compile("org.apache.commons:commons-lang3:3.0")
+    implementation("org.apache.commons:commons-lang3:3.0")
 
     implementation("org.telegram:telegrambots-spring-boot-starter:5.1.0")
     implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
@@ -59,7 +59,7 @@ dependencies {
     liquibaseRuntime("org.postgresql:postgresql:${postgresqlVersion}")
 
     testCompileOnly("org.projectlombok:lombok:${lombokVersion}")
-    testCompile("junit:junit:4.12")
+    testImplementation("junit:junit:4.12")
 }
 
 liquibase {
