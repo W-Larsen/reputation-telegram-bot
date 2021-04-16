@@ -19,9 +19,7 @@ public class ChatAdministratorsService implements IChatAdministratorsService {
 
     @Override
     public void populateChatAdministrators(String chatId, List<ChatMember> executedChatAdministrators) {
-        log.info("Trying to populate administrators for chat id '{}' ...", chatId);
         Map<String, List<ChatMember>> chatAdministratorsByChatId = chatAdministrators.getChatAdministratorsByChatId();
         chatAdministratorsByChatId.put(chatId, executedChatAdministrators);
-        log.info("Chat administrators were successfully populated in size {}", executedChatAdministrators.size());
     }
 }
