@@ -23,5 +23,7 @@ public enum MethodName {
 
     GET_CHAT_ADMINISTRATORS,
 
+    PERMISSION_DENIED,
+
     NO_METHOD
 }
