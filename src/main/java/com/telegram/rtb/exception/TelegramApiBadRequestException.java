@@ -21,6 +21,13 @@ public class TelegramApiBadRequestException extends RuntimeException {
         super(message, cause);
     }
 
+    /**
+     * TelegramApiBadRequestException constructor.
+     *
+     * @param message     the errorMessage
+     * @param apiResponse the api response
+     * @param errorCode   the error code
+     */
     public TelegramApiBadRequestException(String message, String apiResponse, Integer errorCode) {
         super(message);
         this.apiResponse = apiResponse;
