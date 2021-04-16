@@ -23,6 +23,11 @@ databaseChangeLog {
         comment('Create constrains in users table.')
         preConditions(onFail: 'MARK_RAN') {
             tableExists(tableName: 'users')
+            and() {
+                not() {
+                    primaryKeyExists(primaryKeyName: 'users_pkey', tableName: 'users')
+                }
+            }
         }
         addNotNullConstraint(tableName: 'users', columnName: 'user_id', columnDataType: 'serial')
         addNotNullConstraint(tableName: 'users', columnName: 'user_name', columnDataType: 'text')
@@ -53,6 +58,11 @@ databaseChangeLog {
         comment('Create constrains on chats table.')
         preConditions(onFail: 'MARK_RAN') {
             tableExists(tableName: 'chats')
+            and() {
+                not() {
+                    primaryKeyExists(primaryKeyName: 'chats_pkey', tableName: 'chats')
+                }
+            }
         }
 
         addNotNullConstraint(tableName: 'chats', columnName: 'chat_id', columnDataType: 'bigserial')
@@ -86,6 +96,11 @@ databaseChangeLog {
         comment('Create constrains on user_reputations table.')
         preConditions(onFail: 'MARK_RAN') {
             tableExists(tableName: 'user_reputations')
+            and() {
+                not() {
+                    primaryKeyExists(primaryKeyName: 'user_reputations_pkey', tableName: 'user_reputations')
+                }
+            }
         }
         addNotNullConstraint(tableName: 'user_reputations', columnName: 'user_id', columnDataType: 'serial')
         addNotNullConstraint(tableName: 'user_reputations', columnName: 'chat_id', columnDataType: 'bigint')
@@ -137,6 +152,11 @@ databaseChangeLog {
         comment('Create constrains on keywords table.')
         preConditions(onFail: 'MARK_RAN') {
             tableExists(tableName: 'keywords')
+            and() {
+                not() {
+                    primaryKeyExists(primaryKeyName: 'keywords_pkey', tableName: 'keywords')
+                }
+            }
         }
 
         addNotNullConstraint(tableName: 'keywords', columnName: 'keyword_id', columnDataType: 'varchar(36)')
