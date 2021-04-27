@@ -1,5 +1,6 @@
 package com.telegram.rtb.service.keyword;
 
+import com.telegram.rtb.model.keyword.AllKeywords;
 import com.telegram.rtb.model.keyword.Keywords;
 
 import java.util.List;
@@ -18,6 +19,14 @@ public interface IKeywordService {
      * @return list of keywords
      */
     Keywords getKeywordsByChatId(Long chatId);
+
+    /**
+     * Get all keywords.
+     *
+     * @param chatId the chat id
+     * @return all keywords
+     */
+    AllKeywords getAllKeywords(Long chatId);
 
     /**
      * Save new keywords by chat id.

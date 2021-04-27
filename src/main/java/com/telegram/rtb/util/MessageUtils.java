@@ -59,19 +59,4 @@ public final class MessageUtils {
     public static String trimCommandText(String message) {
         return message.substring(message.indexOf(' ')).trim();
     }
-
-    /**
-     * Gets possible managing command from related messages map.
-     *
-     * @param commandText     the command text
-     * @param relatedMessages the related messages
-     * @return possible command
-     */
-    public static String getPossibleManagingCommand(String commandText, Map<String, List<String>> relatedMessages) {
-        return relatedMessages.entrySet().stream()
-                .filter(entry -> entry.getValue().stream().anyMatch(commandText::equalsIgnoreCase))
-                .map(Map.Entry::getKey)
-                .findFirst()
-                .orElse(commandText);
-    }
 }
