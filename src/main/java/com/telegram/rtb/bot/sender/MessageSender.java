@@ -31,7 +31,7 @@ public class MessageSender {
     }
 
     /**
-     * Send message.
+     * Send generic message.
      *
      * @param botApiMethod     the generic bot api method
      * @param methodName       the method name enum

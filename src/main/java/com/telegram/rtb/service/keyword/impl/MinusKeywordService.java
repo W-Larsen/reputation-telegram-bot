@@ -1,23 +1,20 @@
 package com.telegram.rtb.service.keyword.impl;
 
-import com.telegram.rtb.exception.NotFoundException;
 import com.telegram.rtb.model.domain.keyword.MinusKeyword;
 import com.telegram.rtb.model.keyword.MinusKeywords;
 import com.telegram.rtb.repository.keyword.MinusKeywordRepository;
 import com.telegram.rtb.service.chat.IChatService;
+import com.telegram.rtb.service.keyword.AbstractKeywordService;
 import com.telegram.rtb.service.keyword.IKeywordService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.telegram.rtb.transform.keyword.MinusKeywordTransformer.createPlusKeyword;
-import static com.telegram.rtb.transform.keyword.MinusKeywordTransformer.transformMinusKeywords;
 
 /**
  * Minus keyword service.
@@ -26,7 +23,7 @@ import static com.telegram.rtb.transform.keyword.MinusKeywordTransformer.transfo
  */
 @Service
 @Log4j2
-public class MinusKeywordService implements IKeywordService {
+public class MinusKeywordService extends AbstractKeywordService implements IKeywordService {
 
     @Autowired
     private MinusKeywordRepository keywordRepository;
@@ -35,11 +32,7 @@ public class MinusKeywordService implements IKeywordService {
 
     @Override
     public MinusKeywords getKeywordsByChatId(Long chatId) {
-        checkChatId(chatId);
-
-        List<MinusKeyword> keywords = keywordRepository.findAllByKeywordPkChatId(chatId)
-                .orElse(Collections.emptyList());
-        return transformMinusKeywords(keywords, chatId);
+        return getMinusKeywordsByChatId(chatId);
     }
 
     @Override
@@ -73,13 +66,5 @@ public class MinusKeywordService implements IKeywordService {
         checkChatId(chatId);
 
         keywordRepository.deleteKeywordByKeywordValueAndKeywordPkChatId(keyword, chatId);
-    }
-
-    private void checkChatId(Long chatId) {
-        if (Objects.isNull(chatService.getTelegramChatByChatId(chatId))) {
-            String message = String.format("Telegram chat with such id %s does not exists in database.", chatId);
-            log.error(message);
-            throw new NotFoundException(message);
-        }
     }
 }
