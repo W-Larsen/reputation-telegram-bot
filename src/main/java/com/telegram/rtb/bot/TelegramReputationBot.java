@@ -2,7 +2,6 @@ package com.telegram.rtb.bot;
 
 import com.telegram.rtb.bot.sender.MessageSender;
 import com.telegram.rtb.command.handler.CommandHandler;
-import com.telegram.rtb.exception.TelegramApiBadRequestException;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +14,13 @@ import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChatAdm
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Function;
 
 import static com.telegram.rtb.model.message.MethodName.GET_CHAT_ADMINISTRATORS;
+import static com.telegram.rtb.util.BotApiMethodCreator.createGetChatAdministrators;
 
 /**
  * Telegram reputation bot implementation.
@@ -61,9 +60,6 @@ public class TelegramReputationBot extends TelegramLongPollingBot {
         return (BotApiMethod<?> botApiMethod) -> {
             try {
                 return (T) execute(botApiMethod);
-            } catch (TelegramApiRequestException e) {
-                log.error("Failed to deserialize response. Api response: {}. Error: {}", e.getApiResponse(), e.getMessage());
-                throw new TelegramApiBadRequestException(e.getMessage(), e.getApiResponse(), e.getErrorCode());
             } catch (TelegramApiException e) {
                 log.error("Failed to execute message due to error: {}", e.getMessage());
                 throw new RuntimeException(e);

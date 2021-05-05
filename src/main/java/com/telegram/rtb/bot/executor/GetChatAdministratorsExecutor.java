@@ -1,6 +1,5 @@
 package com.telegram.rtb.bot.executor;
 
-import com.telegram.rtb.exception.TelegramApiBadRequestException;
 import com.telegram.rtb.model.message.MethodName;
 import com.telegram.rtb.service.chat.IChatAdministratorsService;
 import com.telegram.rtb.service.chat.IChatService;
@@ -36,22 +35,15 @@ public class GetChatAdministratorsExecutor implements MessageExecutor {
     }
 
     @Override
-    public <T> void executeMessage(BotApiMethod<?> botApiMethod, MethodName methodName, Function<BotApiMethod<?>, T> executorFunction) {
-        log.info("Populating administrators...");
-        chatService.getAllChats().forEach(telegramChat ->
-                applyPopulatingChatAdministrators(botApiMethod, executorFunction, telegramChat.getChatId().toString()));
-    }
-
     @SuppressWarnings("unchecked")
-    private <T> void applyPopulatingChatAdministrators(BotApiMethod<?> botApiMethod, Function<BotApiMethod<?>, T> executorFunction, String chatId) {
-        log.info("Trying to populate administrators for chat id '{}' ...", chatId);
-        try {
+    public <T> void executeMessage(BotApiMethod<?> botApiMethod, MethodName methodName, Function<BotApiMethod<?>, T> executorFunction) {
+        chatService.getAllChats().forEach(telegramChat -> {
+            String chatId = telegramChat.getChatId().toString();
+            log.info("Trying to populate administrators for chat id '{}' ...", chatId);
             List<ChatMember> chatMembers = (ArrayList<ChatMember>) executorFunction.apply(populateChatId(botApiMethod, chatId));
             chatAdministratorsService.populateChatAdministrators(chatId, chatMembers);
             log.info("Chat administrators were successfully populated in size {}", chatMembers.size());
-        } catch (TelegramApiBadRequestException e) {
-            log.error("Error getting chat administrators, skipping chatId {}", chatId);
-        }
+        });
     }
 
     private GetChatAdministrators populateChatId(BotApiMethod<?> botApiMethod, String chatId) {
