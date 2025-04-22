@@ -179,6 +179,32 @@ databaseChangeLog {
             // all changes automatically rolled-back
         }
     }
+
+    changeSet(id: '22_04_2025_00_change_type_of_user_ids', author: 'Valentyn-Korniienko') {
+        comment('Convert all remaining serial/integer fields to bigint for consistency')
+
+        modifyDataType(
+                tableName: 'user_reputations',
+                columnName: 'user_id',
+                newDataType: 'bigint'
+        )
+
+        modifyDataType(
+                tableName: 'user_reputations',
+                columnName: 'updated_from_id',
+                newDataType: 'bigint'
+        )
+
+        modifyDataType(
+                tableName: 'user_reputations',
+                columnName: 'reputation_value',
+                newDataType: 'bigint'
+        )
+
+        rollback {
+            // all changes automatically rolled-back
+        }
+    }
 }
 
 

@@ -1,9 +1,8 @@
 buildscript {
     ext {
-        springBootVersion = "2.4.4"
-        lombokVersion = "1.18.6"
-        liquibaseVersion = '4.1.1'
-        liquibasePluginVersion = '2.0.3'
+        springBootVersion = "3.2.0"
+        liquibaseVersion = '4.28.0'
+        liquibasePluginVersion = '2.2.0'
     }
     repositories {
         mavenCentral()
@@ -19,47 +18,59 @@ buildscript {
 
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.4.4'
-    id "io.freefair.lombok" version "5.1.0"
-    id 'org.liquibase.gradle' version '2.0.4'
+    id 'org.springframework.boot' version '3.2.0'
+    id 'org.liquibase.gradle' version '2.2.0'
     id 'checkstyle'
-    id "com.github.spotbugs" version "4.6.0"
 }
 
 group 'com.reputation-telegram-bot'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.11
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 repositories {
     mavenCentral()
 }
 
 ext {
-    springBootVersion = "2.4.3"
-    lombokVersion = "1.18.6"
+    springBootVersion = "3.2.0"
+    lombokVersion = "1.18.30"
     postgresqlVersion = '42.2.12'
-    liquibaseVersion = '4.1.1'
-    liquibasePluginVersion = '2.0.3'
+    liquibaseVersion = '4.28.0'
 }
 
 dependencies {
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
-
-    compileOnly("org.projectlombok:lombok:${lombokVersion}")
     implementation("org.apache.commons:commons-lang3:3.0")
 
-    implementation("org.telegram:telegrambots-spring-boot-starter:5.1.0")
+    implementation 'org.telegram:telegrambots-springboot-longpolling-starter:8.3.0'
+    implementation 'org.telegram:telegrambots-client:8.3.0'
     implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
     implementation("org.postgresql:postgresql:${postgresqlVersion}")
 
     runtimeOnly("org.liquibase:liquibase-core:${liquibaseVersion}")
-    runtimeOnly("org.liquibase:liquibase-groovy-dsl:3.0.0")
+    runtimeOnly("org.liquibase:liquibase-groovy-dsl:4.0.0")
     runtimeOnly("org.postgresql:postgresql:${postgresqlVersion}")
 
-    testCompileOnly("org.projectlombok:lombok:${lombokVersion}")
-    testImplementation("junit:junit:4.12")
+    implementation 'net.logstash.logback:logstash-logback-encoder:7.3'
+    implementation 'ch.qos.logback:logback-core:1.5.6'
+    implementation 'ch.qos.logback:logback-classic:1.5.6'
+    implementation "ch.qos.logback.contrib:logback-json-classic:0.1.5"
+    implementation "ch.qos.logback.contrib:logback-jackson:0.1.5"
+
+    testImplementation("junit:junit")
+}
+
+// Lombok Dependencies
+dependencies {
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
 
 liquibase {
@@ -82,18 +93,8 @@ checkstyleMain {
     source = 'src/main/java'
 }
 
-spotbugs {
-    ignoreFailures = false
-    showStackTraces = true
-    showProgress = true
-    spotbugsTest.enabled = false
-}
-
-spotbugsMain {
-    reports {
-        html {
-            enabled = true
-            stylesheet = 'fancy-hist.xsl'
-        }
-    }
+jar {
+    enabled = false
+    manifest {
+        attributes('Main-Class': 'com.telegram.rtb.TelegramReputationBotInit')}
 }

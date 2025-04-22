@@ -5,10 +5,10 @@ import com.telegram.rtb.command.Command;
 import com.telegram.rtb.exception.BadRequestException;
 import com.telegram.rtb.model.keyword.Keywords;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
-import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.message.Message;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +27,7 @@ import static com.telegram.rtb.util.MessageUtils.trimCommandText;
 /**
  * Abstract keyword command class.
  */
-@Log4j2
+@Slf4j
 public abstract class AbstractKeywordCommand extends AbstractCommand implements Command {
 
     /**

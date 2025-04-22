@@ -1,6 +1,7 @@
 package com.telegram.rtb.service.chat;
 
-import org.telegram.telegrambots.meta.api.objects.ChatMember;
+
+import org.telegram.telegrambots.meta.api.objects.chatmember.ChatMember;
 
 import java.util.List;
 

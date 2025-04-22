@@ -17,8 +17,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
+import org.telegram.telegrambots.meta.api.objects.chat.Chat;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 
 import static com.telegram.rtb.constants.Messages.DELAY_MESSAGE_RU;
 import static com.telegram.rtb.util.UserUtils.getFullName;
-import static org.apache.commons.lang3.math.NumberUtils.INTEGER_ZERO;
+import static org.apache.commons.lang3.math.NumberUtils.LONG_ZERO;
 
 /**
  * User reputation service implementation.
@@ -173,7 +173,7 @@ public class UserReputationService implements IUserReputationService {
                         .userId(userId)
                         .chatId(chatId)
                         .build())
-                .reputationValue(INTEGER_ZERO)
+                .reputationValue(LONG_ZERO)
                 .updatedDateTime(ZonedDateTime.now())
                 .updatedFromId(updatedFromId)
                 .build();

@@ -3,8 +3,7 @@ package com.telegram.rtb.bot.executor;
 import com.telegram.rtb.bot.sender.MessageSender;
 import com.telegram.rtb.model.message.MethodName;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
-import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethod;
 
 import java.util.function.Function;
 

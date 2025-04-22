@@ -9,7 +9,7 @@ import com.telegram.rtb.model.keyword.PlusKeywords;
 import com.telegram.rtb.repository.keyword.MinusKeywordRepository;
 import com.telegram.rtb.repository.keyword.PlusKeywordRepository;
 import com.telegram.rtb.service.chat.IChatService;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
@@ -22,7 +22,7 @@ import static com.telegram.rtb.transform.keyword.PlusKeywordTransformer.transfor
 /**
  * Abstract keyword service
  */
-@Log4j2
+@Slf4j
 public abstract class AbstractKeywordService implements IKeywordService {
 
     @Autowired

@@ -4,12 +4,12 @@ import com.telegram.rtb.exception.TelegramApiBadRequestException;
 import com.telegram.rtb.model.message.MethodName;
 import com.telegram.rtb.service.chat.IChatAdministratorsService;
 import com.telegram.rtb.service.chat.IChatService;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChatAdministrators;
-import org.telegram.telegrambots.meta.api.objects.ChatMember;
+import org.telegram.telegrambots.meta.api.objects.chatmember.ChatMember;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.function.Function;
  * @author Valentyn Korniienko
  */
 @Component
-@Log4j2
+@Slf4j
 public class GetChatAdministratorsExecutor implements MessageExecutor {
 
     @Autowired
