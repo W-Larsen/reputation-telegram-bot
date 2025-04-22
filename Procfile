@@ -1,2 +1,2 @@
-java -Dserver.port=$PORT $JAVA_OPTS -jar target/*.jar
-release: ./gradlew clean build --no-daemon
+web: java -Dserver.port=$PORT -jar build/libs/*.jar
+release: ./gradlew clean --no-daemon
