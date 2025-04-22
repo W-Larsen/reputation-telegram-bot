@@ -22,7 +22,6 @@ plugins {
     id 'org.springframework.boot' version '2.4.4'
     id 'org.liquibase.gradle' version '2.0.4'
     id 'checkstyle'
-    id "com.github.spotbugs" version "4.6.0"
 }
 
 group 'com.reputation-telegram-bot'
@@ -43,9 +42,6 @@ ext {
 }
 
 dependencies {
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
-
-    compileOnly("org.projectlombok:lombok:${lombokVersion}")
     implementation("org.apache.commons:commons-lang3:3.0")
 
     implementation 'org.telegram:telegrambots-springboot-longpolling-starter:8.3.0'
@@ -87,20 +83,4 @@ checkstyle {
 }
 checkstyleMain {
     source = 'src/main/java'
-}
-
-spotbugs {
-    ignoreFailures = false
-    showStackTraces = true
-    showProgress = true
-    spotbugsTest.enabled = false
-}
-
-spotbugsMain {
-    reports {
-        html {
-            enabled = true
-            stylesheet = 'fancy-hist.xsl'
-        }
-    }
 }
