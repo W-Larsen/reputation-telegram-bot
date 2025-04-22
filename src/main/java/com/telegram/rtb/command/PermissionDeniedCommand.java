@@ -2,7 +2,7 @@ package com.telegram.rtb.command;
 
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.message.Message;
 
 import java.util.List;
 

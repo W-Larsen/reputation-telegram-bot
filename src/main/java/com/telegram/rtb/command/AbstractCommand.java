@@ -2,7 +2,7 @@ package com.telegram.rtb.command;
 
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import com.telegram.rtb.model.message.MethodName;
-import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 

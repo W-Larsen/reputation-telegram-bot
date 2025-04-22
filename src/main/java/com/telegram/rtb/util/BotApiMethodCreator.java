@@ -2,7 +2,7 @@ package com.telegram.rtb.util;
 
 import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChatAdministrators;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.message.Message;
 
 import static com.telegram.rtb.model.domain.ParseMode.MARKDOWN_V2;
 

@@ -1,7 +1,7 @@
 buildscript {
     ext {
         springBootVersion = "2.4.4"
-        lombokVersion = "1.18.6"
+        lombokVersion = "1.18.30"
         liquibaseVersion = '4.1.1'
         liquibasePluginVersion = '2.0.3'
     }
@@ -20,7 +20,6 @@ buildscript {
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.4.4'
-    id "io.freefair.lombok" version "5.1.0"
     id 'org.liquibase.gradle' version '2.0.4'
     id 'checkstyle'
     id "com.github.spotbugs" version "4.6.0"
@@ -29,7 +28,7 @@ plugins {
 group 'com.reputation-telegram-bot'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.11
+sourceCompatibility = 1.17
 
 repositories {
     mavenCentral()
@@ -37,7 +36,7 @@ repositories {
 
 ext {
     springBootVersion = "2.4.3"
-    lombokVersion = "1.18.6"
+    lombokVersion = "1.18.30"
     postgresqlVersion = '42.2.12'
     liquibaseVersion = '4.1.1'
     liquibasePluginVersion = '2.0.3'
@@ -49,7 +48,8 @@ dependencies {
     compileOnly("org.projectlombok:lombok:${lombokVersion}")
     implementation("org.apache.commons:commons-lang3:3.0")
 
-    implementation("org.telegram:telegrambots-spring-boot-starter:5.1.0")
+    implementation 'org.telegram:telegrambots-springboot-longpolling-starter:8.3.0'
+    implementation 'org.telegram:telegrambots-client:8.3.0'
     implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
     implementation("org.postgresql:postgresql:${postgresqlVersion}")
@@ -58,8 +58,15 @@ dependencies {
     runtimeOnly("org.liquibase:liquibase-groovy-dsl:3.0.0")
     runtimeOnly("org.postgresql:postgresql:${postgresqlVersion}")
 
-    testCompileOnly("org.projectlombok:lombok:${lombokVersion}")
     testImplementation("junit:junit:4.12")
+}
+
+// Lombok Dependencies
+dependencies {
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
 
 liquibase {

@@ -3,8 +3,7 @@ package com.telegram.rtb.bot.sender;
 import com.telegram.rtb.bot.executor.MessageExecutor;
 import com.telegram.rtb.model.message.MethodName;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
-import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethod;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

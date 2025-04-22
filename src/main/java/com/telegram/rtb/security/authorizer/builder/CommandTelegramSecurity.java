@@ -20,7 +20,6 @@ public class CommandTelegramSecurity extends AbstractSecurityBuilder {
     private Boolean allowedByDefault = Boolean.FALSE;
 
     private final Map<String, List<String>> commandPermissions = new HashMap<>();
-
     private final Queue<String> commands = new ArrayDeque<>();
     private final Queue<List<String>> roles = new ArrayDeque<>();
 

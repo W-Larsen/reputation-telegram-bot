@@ -30,7 +30,7 @@ public class UserReputation {
 
     @EmbeddedId
     private UserReputationPk userReputationPk;
-    private Integer reputationValue;
+    private Long reputationValue;
     private ZonedDateTime updatedDateTime;
     private Long updatedFromId;
 
