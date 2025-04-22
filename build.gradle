@@ -41,8 +41,6 @@ ext {
     lombokVersion = "1.18.30"
     postgresqlVersion = '42.2.12'
     liquibaseVersion = '4.28.0'
-
-    jarName = "reputation-telegram-bot.jar"
 }
 
 dependencies {
@@ -93,8 +91,4 @@ checkstyle {
 }
 checkstyleMain {
     source = 'src/main/java'
-}
-
-bootJar {
-    archiveFileName = jarName
 }
