@@ -2,7 +2,7 @@ package com.telegram.rtb.security.access;
 
 import com.telegram.rtb.model.message.ChatAdministrators;
 import com.telegram.rtb.security.authorizer.builder.CommandTelegramSecurity;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -19,7 +19,7 @@ import java.util.Optional;
  * @author Valentyn Korniienko
  */
 @Component
-@Log4j2
+@Slf4j
 public class CommandTelegramSecurityAccess implements TelegramSecurityAccess {
 
     @Autowired

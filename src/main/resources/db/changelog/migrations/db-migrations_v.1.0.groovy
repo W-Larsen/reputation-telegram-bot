@@ -201,12 +201,6 @@ databaseChangeLog {
                 newDataType: 'bigint'
         )
 
-        preConditions(onFail: 'MARK_RAN') {
-            foreignKeyConstraintExists(
-                    foreignKeyName: 'user_reputations_user_id_fkey'
-            )
-        }
-
         rollback {
             // all changes automatically rolled-back
         }

@@ -1,6 +1,6 @@
 package com.telegram.rtb.security.authorizer.builder;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanCreationException;
 
 import java.util.ArrayDeque;
@@ -14,7 +14,7 @@ import java.util.Queue;
  *
  * @author Valentyn Korniienko
  */
-@Log4j2
+@Slf4j
 public class CommandTelegramSecurity extends AbstractSecurityBuilder {
 
     private Boolean allowedByDefault = Boolean.FALSE;

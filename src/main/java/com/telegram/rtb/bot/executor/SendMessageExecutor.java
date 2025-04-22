@@ -2,7 +2,7 @@ package com.telegram.rtb.bot.executor;
 
 import com.telegram.rtb.model.cache.MessageCache;
 import com.telegram.rtb.model.message.MethodName;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ import static com.telegram.rtb.model.message.MethodName.MANAGE_REPUTATION;
  * @author Valentyn Korniienko
  */
 @Component
-@Log4j2
+@Slf4j
 public class SendMessageExecutor implements MessageExecutor {
 
     @Autowired

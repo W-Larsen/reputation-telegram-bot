@@ -1,7 +1,7 @@
 package com.telegram.rtb.security.authorizer;
 
 import com.telegram.rtb.security.authorizer.builder.CommandTelegramSecurity;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Valentyn Korniienko
  */
-@Log4j2
+@Slf4j
 @Component
 public class TelegramSecurityAuthorizer {
 

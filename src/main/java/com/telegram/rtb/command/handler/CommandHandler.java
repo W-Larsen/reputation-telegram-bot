@@ -3,7 +3,7 @@ package com.telegram.rtb.command.handler;
 import com.telegram.rtb.command.Command;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import com.telegram.rtb.service.keyword.extractor.KeywordInterpreter;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ import static com.telegram.rtb.util.BotApiMethodResponseCreator.createDefaultBot
  * @author Valenyn Korniienko
  */
 @Component
-@Log4j2
+@Slf4j
 public class CommandHandler {
 
     @Autowired

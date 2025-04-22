@@ -6,11 +6,11 @@ import com.telegram.rtb.repository.keyword.MinusKeywordRepository;
 import com.telegram.rtb.service.chat.IChatService;
 import com.telegram.rtb.service.keyword.AbstractKeywordService;
 import com.telegram.rtb.service.keyword.IKeywordService;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +22,7 @@ import static com.telegram.rtb.transform.keyword.MinusKeywordTransformer.createP
  * @author Valentyn Korniinenko
  */
 @Service
-@Log4j2
+@Slf4j
 public class MinusKeywordService extends AbstractKeywordService implements IKeywordService {
 
     @Autowired

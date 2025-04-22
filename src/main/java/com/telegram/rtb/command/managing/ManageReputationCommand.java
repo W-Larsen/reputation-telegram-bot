@@ -6,7 +6,7 @@ import com.telegram.rtb.model.cache.MessageCache;
 import com.telegram.rtb.model.domain.UserReputation;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import com.telegram.rtb.service.reputation.IUserReputationService;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethod;
@@ -25,7 +25,7 @@ import static com.telegram.rtb.model.message.MethodName.MANAGE_REPUTATION;
  *
  * @author Valentyn Korniienko
  */
-@Log4j2
+@Slf4j
 public abstract class ManageReputationCommand extends AbstractCommand implements Command {
 
     @Autowired

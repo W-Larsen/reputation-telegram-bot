@@ -1,6 +1,11 @@
 package com.telegram.rtb.model.domain;
 
 import com.telegram.rtb.model.domain.key.UserReputationPk;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,11 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import java.time.ZonedDateTime;
 
 /**
@@ -35,14 +35,6 @@ public class UserReputation {
     private Long updatedFromId;
 
     @ManyToOne
-    @JoinColumn(name = "chat_id", insertable = false, updatable = false)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @Getter
-    @Setter
-    private TelegramChat telegramChat;
-
-    @ManyToOne
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
@@ -50,4 +42,11 @@ public class UserReputation {
     @Setter
     private TelegramUser telegramUser;
 
+    @ManyToOne
+    @JoinColumn(name = "chat_id", insertable = false, updatable = false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @Getter
+    @Setter
+    private TelegramChat telegramChat;
 }

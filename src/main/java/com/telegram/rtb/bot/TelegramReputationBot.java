@@ -5,7 +5,7 @@ import com.telegram.rtb.command.handler.CommandHandler;
 import com.telegram.rtb.exception.TelegramApiBadRequestException;
 import com.telegram.rtb.model.message.BotApiMethodResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -33,7 +33,7 @@ import static com.telegram.rtb.model.message.MethodName.GET_CHAT_ADMINISTRATORS;
  * @author Valentyn Korniienko
  */
 @Component
-@Log4j2
+@Slf4j
 @RequiredArgsConstructor
 public class TelegramReputationBot implements SpringLongPollingBot, LongPollingSingleThreadUpdateConsumer {
 
@@ -41,9 +41,6 @@ public class TelegramReputationBot implements SpringLongPollingBot, LongPollingS
 
     @Value("${telegram.reputation.bot.token}")
     private String botToken;
-
-    @Value("${telegram.reputation.bot.username}")
-    private String botUsername;
 
     @Autowired
     private CommandHandler commandHandler;

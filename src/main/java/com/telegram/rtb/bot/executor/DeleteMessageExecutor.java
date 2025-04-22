@@ -1,7 +1,7 @@
 package com.telegram.rtb.bot.executor;
 
 import com.telegram.rtb.model.message.MethodName;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
@@ -14,7 +14,7 @@ import java.util.function.Function;
  * @author Valentyn Korniienko
  */
 @Component
-@Log4j2
+@Slf4j
 public class DeleteMessageExecutor implements MessageExecutor {
 
     @Override
