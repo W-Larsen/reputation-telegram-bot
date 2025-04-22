@@ -27,7 +27,11 @@ plugins {
 group 'com.reputation-telegram-bot'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.17
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 repositories {
     mavenCentral()
@@ -39,6 +43,8 @@ ext {
     postgresqlVersion = '42.2.12'
     liquibaseVersion = '4.1.1'
     liquibasePluginVersion = '2.0.3'
+
+    jarName = "reputation-telegram-bot.jar"
 }
 
 dependencies {
@@ -83,4 +89,8 @@ checkstyle {
 }
 checkstyleMain {
     source = 'src/main/java'
+}
+
+bootJar {
+    archiveFileName = jarName
 }
